@@ -1,0 +1,19 @@
+table {
+    margin:10px;
+    border-spacing: 20px;
+}
+th, td {
+    padding:10px;
+    border: 1px solid black;
+}
+td {
+    background-color: yellow;
+}
+th {
+    background-color: green;
+}
+p {
+    padding:10px;
+    margin:0px;
+    border: 1px solid black;
+}
