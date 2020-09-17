@@ -1,0 +1,4 @@
+Three main types of styling:
+-Inline styling
+-Internal CSS
+-External CSS

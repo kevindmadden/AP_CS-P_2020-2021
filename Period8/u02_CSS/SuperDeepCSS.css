@@ -1,0 +1,9 @@
+p {
+    color: green;
+}
+p.importantParagraph {
+    color: red;
+}
+strong {
+    background-color: yellow;
+}

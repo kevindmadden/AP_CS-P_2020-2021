@@ -1,0 +1,9 @@
+p {
+    color: green;
+}
+p.importantParagraph {
+    color: yellowgreen;
+}
+h1.specialHeader {
+    color: red;
+}
