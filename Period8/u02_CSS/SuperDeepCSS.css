@@ -1,9 +1,13 @@
-p {
-    color: green;
-}
 p.importantParagraph {
     color: red;
 }
+p.unimportantParagraph {
+    color: black;
+}
+p {
+    color: green;
+}
+
 strong {
     background-color: yellow;
 }
