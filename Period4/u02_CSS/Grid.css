@@ -1,0 +1,12 @@
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 10px;
+    grid-auto-rows: minmax(60px, auto);
+}
+
+.container > div {
+    background-color: aqua;
+    border: 1px solid purple;
+    font-size: 80px;
+}

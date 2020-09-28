@@ -1,0 +1,25 @@
+/*
+selector {
+    property: value;
+    property: value;
+}
+ */
+
+.container {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 3fr 1fr 1fr;
+    grid-auto-rows: minmax(50px,auto);
+    /*Below is a way to say that you want 1fr repeated three times.
+    grid-template-columns: repeat(3, 1fr);*/
+    /* If you specifically set the width of each column, then row height is auto-handled
+       If you specifically set the height of each row, then col height is auto-handled.
+     */
+}
+
+.container > div {
+    background-color: aqua;
+    border: 1px solid purple;
+    font-size: 10px;
+}
+

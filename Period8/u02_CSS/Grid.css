@@ -1,0 +1,20 @@
+/*
+selector {
+    property: value;
+}
+*/
+
+.container {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr;
+    /*grid-template-columns: repeat(5, 1fr);  **These are two ways of doing the same thing** grid-template-columns: 1fr 1fr 1fr 1fr 1fr;*/
+    grid-gap:10px;
+    grid-auto-rows: 100px;
+}
+
+.container > div {
+    background-color: yellow;
+    border: purple 1px solid;
+    font-size: 20px;
+}
+
