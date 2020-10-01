@@ -1,0 +1,26 @@
+.wrapper {
+    display: grid;
+    grid-template-columns: 1fr 5fr 1fr;
+    background-color: purple;
+    grid-auto-rows: minmax(60px, auto);
+}
+
+.wrapper > div {
+    border: 1px solid red;
+    background-color: yellow;
+
+}
+
+.box1 {
+    grid-column-start: 2;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 3;
+}
+
+.box2 {
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 3;
+    grid-row-end: 5;
+}
