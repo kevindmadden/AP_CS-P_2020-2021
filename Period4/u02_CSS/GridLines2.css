@@ -1,0 +1,32 @@
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(16, 1fr);
+    background-color: aqua;
+    grid-auto-rows: minmax(60px, auto);
+}
+
+.wrapper > div {
+    background-color: yellow;
+    border: 2px dashed purple;
+    font-size: 30px;
+}
+
+.box1{
+    grid-column-start: 3;
+    grid-column-end: 14;
+}
+
+.box2{
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
+.box3{
+    grid-column-start: 3;
+    grid-column-end: 14;
+}
+
+.box4{
+    grid-column-start: 1;
+    grid-column-end: 14;
+}
