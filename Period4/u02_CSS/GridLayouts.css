@@ -2,7 +2,7 @@
 body {
     display: grid;
     grid-template-areas:
-            "header header header"
+            "bunny bunny bunny"
             "ads article nav"
             "footer footer footer";
     grid-template-rows: 120px 1fr 60px;
@@ -16,7 +16,7 @@ header, footer, article, nav, div {
     background: gold;
 }
 #pageHeader {
-    grid-area: header;
+    grid-area: bunny;
 }
 #pageFooter {
     grid-area: footer;
