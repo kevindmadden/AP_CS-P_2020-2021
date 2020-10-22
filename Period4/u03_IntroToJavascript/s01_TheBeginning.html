@@ -2,16 +2,33 @@
 <head>
     <title>Example</title>
     <link rel="stylesheet" href="s01_TheBeginning.css">
+    <script src="s01_TheBeginning.js"></script>
+    <script>
+        function makeStuffGreen(){
+            document.getElementById("secondParagraph").style.color = "green"
+        }
+
+    </script>
 </head>
 
 <body>
-<div id="pageHeader">Header</div>
+<div id="pageHeader" style="background:red">Header</div>
 <div id="mainArticle">
     <p id="firstParagraph">
         Javascript is NOT Java.
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </p>
     <button type="button" onclick='document.getElementById("firstParagraph").innerHTML = "I actually wrote this sentence."'>Click for real!!</button>
+
+    <p id="secondParagraph">
+        Javascript is NOT Java.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+
+    <button type="button" onclick="makeStuffGreen()">Press to turn green!!</button>
+    <button type="button" onclick="doLotsOfStuff()">Press to change both paragraphs!!</button>
+
+
 
 
 </div>
