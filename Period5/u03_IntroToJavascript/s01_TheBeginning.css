@@ -1,5 +1,5 @@
 /* From: https://www.quackit.com/css/grid/tutorial/create_a_website_layout.cfm */
-body {
+#wholePage {
     display: grid;
     grid-template-areas:
             "bunny bunny bunny"
