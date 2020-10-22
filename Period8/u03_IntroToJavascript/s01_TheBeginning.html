@@ -2,6 +2,14 @@
 <head>
     <title>Example</title>
     <link rel="stylesheet" href="s01_TheBeginning.css">
+    <script>
+        function changeSecondParagraph(){
+            document.getElementById("secondParagraph").innerHTML = "Paragraph removed!"
+            document.getElementById("secondParagraph").style.color = "red"
+        }
+
+
+    </script>
 </head>
 
 <body>
@@ -11,6 +19,12 @@
         <p>Second thing to do today: Set up IntelliJ to help you with javascript.</p>
         <p id="firstParagraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cras fermentum odio eu feugiat. Nunc sed augue lacus viverra vitae congue eu consequat ac. Morbi tristique senectus et netus et. Mauris pharetra et ultrices neque ornare aenean. Natoque penatibus et magnis dis parturient. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non. Enim lobortis scelerisque fermentum dui faucibus in ornare. Bibendum ut tristique et egestas. Sollicitudin tempor id eu nisl nunc mi ipsum faucibus vitae. Consequat mauris nunc congue nisi vitae suscipit. Sapien faucibus et molestie ac feugiat sed lectus. Lectus quam id leo in vitae. Nunc aliquet bibendum enim facilisis gravida neque convallis a cras. Pharetra et ultrices neque ornare. Risus nec feugiat in fermentum posuere urna. Volutpat odio facilisis mauris sit amet massa vitae tortor. Leo vel orci porta non. Ultrices tincidunt arcu non sodales neque sodales ut etiam. Dui vivamus arcu felis bibendum ut tristique et egestas.</p>
     <button type="button" onclick='document.getElementById("firstParagraph").innerHTML = "This is a sentence I wrote myself in actual English."'>Click here!!!</button>
+        <p id="secondParagraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cras fermentum odio eu feugiat. Nunc sed augue lacus viverra vitae congue eu consequat ac. Morbi tristique senectus et netus et. Mauris pharetra et ultrices neque ornare aenean. Natoque penatibus et magnis dis parturient. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non. Enim lobortis scelerisque fermentum dui faucibus in ornare. Bibendum ut tristique et egestas. Sollicitudin tempor id eu nisl nunc mi ipsum faucibus vitae. Consequat mauris nunc congue nisi vitae suscipit. Sapien faucibus et molestie ac feugiat sed lectus. Lectus quam id leo in vitae. Nunc aliquet bibendum enim facilisis gravida neque convallis a cras. Pharetra et ultrices neque ornare. Risus nec feugiat in fermentum posuere urna. Volutpat odio facilisis mauris sit amet massa vitae tortor. Leo vel orci porta non. Ultrices tincidunt arcu non sodales neque sodales ut etiam. Dui vivamus arcu felis bibendum ut tristique et egestas.</p>
+        <button type="button" onclick="changeSecondParagraph()">Click to change 2nd paragraph</button>
+        <button type="button" onclick="changeSecondParagraph()">Click to change 2nd paragraph</button>
+
+
+
 
     </div>
     <div id="mainNav">Nav</div>
