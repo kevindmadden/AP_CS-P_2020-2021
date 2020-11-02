@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Intro to Canvas</title>
+</head>
+<body>
+
+<canvas id="drawingPad" width="500" height="500" style="border: 1px solid black"></canvas>
+<script>
+    //Canvas API: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
+    // What does API mean? Stands for Application Programming Interface
+    //      Basically, what an API is... it's a help-guide for a bunch of functions that helps
+    //          you do something.
+    const myDrawingPad = document.getElementById("drawingPad")
+    const ctx = myDrawingPad.getContext('2d')
+    // whenever you use "ctx," what you're saying is:
+    //      "hey, I wanna do 2D stuff with the canvas"
+
+    //The canvas coordinate system works like this:
+    //  as you go further down, y increases
+    //  as you go further right, x increases
+    //  top left corner of the canvas is at (0,0)
+
+    ctx.fillStyle = 'green'
+
+    // The top left corner of the rectangle is drawn as (x, y)
+    //ctx.fillRect(x, y, width, height)
+    ctx.fillRect(100, 200, 150, 100)
+    // Example/explanation: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/fillRect
+
+    ctx.fillRect(10,10, 100, 50)
+
+    ctx.fillStyle = 'blue'
+    ctx.fillRect(10, 100, 100, 50)
+
+
+</script>
+
+
+</body>
+</html>
