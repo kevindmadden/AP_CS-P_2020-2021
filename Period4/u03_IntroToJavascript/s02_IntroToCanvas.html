@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Intro to Canvas</title>
+</head>
+<body>
+
+<canvas id="drawingPad" width="500" height="500" style="border: 1px solid black;"></canvas>
+<script>
+    const myCanvas = document.getElementById("drawingPad")
+    const ctx = myCanvas.getContext('2d')
+    //The canvas coordinate system works like this:
+    //  as you go further down, y increases
+    //  as you go further right, x increases
+    //  top left corner of the canvas is at (0,0)
+
+    ctx.fillStyle = 'green'
+
+    // The top left corner of the rectangle is drawn as (x, y)
+    //ctx.fillRect(x, y, width, height)
+    ctx.fillRect(200, 100, 150, 100)
+
+    ctx.fillRect(10, 10, 75, 25)
+
+    // So the way ctx.fillStyle works is that whenever you use this, the color
+    //  changes to the specified color until you change it again.
+    ctx.fillStyle = 'blue'
+    ctx.fillRect(10, 100, 75, 25)
+
+
+</script>
+
+</body>
+</html>
