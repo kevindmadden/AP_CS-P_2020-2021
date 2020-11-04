@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Intro To Canvas</title>
+</head>
+<body>
+
+<canvas id="drawingPad" width="500" height="500" style="border: 1px solid black"></canvas>
+<script>
+    const myDrawingPad = document.getElementById("drawingPad")
+    const ctx = myDrawingPad.getContext("2d") //ctx is just referring to the fact that we want to draw in 2d on our canvas
+
+    ctx.beginPath()
+    ctx.moveTo(10,10)
+    ctx.lineTo(10,100)
+    ctx.lineTo(100,100)
+    //ctx.lineTo(10,10)
+    ctx.closePath()
+
+    ctx.stroke()
+
+
+
+
+</script>
+
+</body>
+</html>

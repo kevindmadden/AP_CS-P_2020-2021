@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Intro to Canvas</title>
+</head>
+<body>
+
+<canvas id="drawingPad" width="500" height="500" style="border: 1px solid black;"></canvas>
+<script>
+    const myCanvas = document.getElementById("drawingPad")
+    const ctx = myCanvas.getContext('2d')
+
+    ctx.beginPath()
+    ctx.moveTo(10,10)
+    ctx.lineTo(10,100)
+    ctx.lineTo(100,100)
+    ctx.closePath()
+    //ctx.lineTo(10,10)
+    ctx.stroke()
+
+</script>
+
+</body>
+</html>
