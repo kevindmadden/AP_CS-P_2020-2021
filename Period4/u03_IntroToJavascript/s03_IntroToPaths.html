@@ -8,16 +8,21 @@
 
 <canvas id="drawingPad" width="500" height="500" style="border: 1px solid black;"></canvas>
 <script>
+    //Canvas API: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
     const myCanvas = document.getElementById("drawingPad")
     const ctx = myCanvas.getContext('2d')
 
     ctx.beginPath()
-    ctx.moveTo(10,10)
+    ctx.moveTo(55,10)
     ctx.lineTo(10,100)
     ctx.lineTo(100,100)
     ctx.closePath()
-    //ctx.lineTo(10,10)
+
+    ctx.strokeStyle = "blue"
+    ctx.fillStyle = "green"
+    ctx.lineWidth = 5
     ctx.stroke()
+    ctx.fill()
 
 </script>
 
