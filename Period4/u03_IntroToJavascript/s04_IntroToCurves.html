@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Intro to Canvas</title>
+</head>
+<body>
+
+<canvas id="drawingPad" width="500" height="500" style="border: 1px solid black;"></canvas>
+<script>
+    //Canvas API: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
+    const myCanvas = document.getElementById("drawingPad")
+    const ctx = myCanvas.getContext('2d')
+
+    ctx.beginPath()
+    ctx.arc(250,100,50,(Math.PI/180)*180,(Math.PI/180)*270)
+    //ctx.arc(250,100,50,Math.PI/2, Math.PI)
+    ctx.stroke()
+
+    ctx.beginPath()
+    ctx.arc(250,400,50,(Math.PI/180)*0,(Math.PI/180)*360)
+    ctx.stroke()
+
+    //TODO: Refresher on Monday on how to draw arcs.
+    //TODO: When you don't understand something correctly, don't just fiddle with the numbers until it works, and then stop right there without trying to understand why it works.
+
+
+</script>
+
+</body>
+</html>
