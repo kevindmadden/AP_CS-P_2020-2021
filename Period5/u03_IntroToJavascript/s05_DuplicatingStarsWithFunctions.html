@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Intro to Canvas</title>
+</head>
+<body>
+
+<canvas id="drawingPad" width="500" height="500" style="border: 1px solid black"></canvas>
+<script>
+    //Canvas API: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
+    const myDrawingPad = document.getElementById("drawingPad")
+    const ctx = myDrawingPad.getContext('2d')
+
+    /*ctx.beginPath()
+    ctx.moveTo(25,0)
+    ctx.lineTo(45,50)
+    ctx.lineTo(0,20)
+    ctx.lineTo(50,20)
+    ctx.lineTo(5,50)
+    ctx.closePath()
+    ctx.stroke()*/
+
+    //Question: How do we duplicate this star?
+    //Answer: Copy, paste, make x values larger
+
+    /*ctx.beginPath()
+    ctx.moveTo(25+100,0)
+    ctx.lineTo(45+100,50)
+    ctx.lineTo(0+100,20)
+    ctx.lineTo(50+100,20)
+    ctx.lineTo(5+100,50)
+    ctx.closePath()
+    ctx.stroke()*/
+
+    //Question: Is there a better way to duplicate the star?
+    //Answer: Yes. Write a function that lets you specify how far to shift the star (use a parameter: xOffset)
+
+    //Function w/1 parameter
+    /*function drawStar(xOffset){
+        ctx.beginPath()
+        ctx.moveTo(25+xOffset,0)
+        ctx.lineTo(45+xOffset,50)
+        ctx.lineTo(0+xOffset,20)
+        ctx.lineTo(50+xOffset,20)
+        ctx.lineTo(5+xOffset,50)
+        ctx.closePath()
+        ctx.stroke()
+    }*/
+
+    function drawStar(xOffset, yOffset){
+        ctx.beginPath()
+        ctx.moveTo(25+xOffset,0+yOffset)
+        ctx.lineTo(45+xOffset,50+yOffset)
+        ctx.lineTo(0+xOffset,20+yOffset)
+        ctx.lineTo(50+xOffset,20+yOffset)
+        ctx.lineTo(5+xOffset,50+yOffset)
+        ctx.closePath()
+        ctx.stroke()
+    }
+
+    drawStar(0, 0)
+    drawStar(50, 0)
+    drawStar(100, 0)
+    drawStar(150, 0)
+
+    drawStar(0, 50)
+    drawStar(50, 50)
+    drawStar(100, 50)
+    drawStar(150, 50)
+
+
+
+
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Intro to Canvas</title>
+</head>
+<body>
+
+<canvas id="drawingPad" width="500" height="500" style="border: 1px solid black;"></canvas>
+<script>
+    //Canvas API: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
+    const myCanvas = document.getElementById("drawingPad")
+    const ctx = myCanvas.getContext('2d')
+
+    /*
+    The long way to duplicate a star: copy and paste ALL of the code, and add 100 to each x value for the duplicated star.
+
+    ctx.beginPath()
+    ctx.moveTo(25,0)
+    ctx.lineTo(40,50)
+    ctx.lineTo(0,20)
+    ctx.lineTo(50,20)
+    ctx.lineTo(10,50)
+    ctx.closePath()
+    ctx.stroke()
+
+    ctx.beginPath()
+    ctx.moveTo(25+100,0)
+    ctx.lineTo(40+100,50)
+    ctx.lineTo(0+100,20)
+    ctx.lineTo(50+100,20)
+    ctx.lineTo(10+100,50)
+    ctx.closePath()
+    ctx.stroke()
+     */
+
+    // parameter names cannot have spaces in them
+    function drawStar(xOffset, yOffset){
+        ctx.beginPath()
+        ctx.moveTo(25+xOffset,0+yOffset)
+        ctx.lineTo(40+xOffset,50+yOffset)
+        ctx.lineTo(0+xOffset,20+yOffset)
+        ctx.lineTo(50+xOffset,20+yOffset)
+        ctx.lineTo(10+xOffset,50+yOffset)
+        ctx.closePath()
+        ctx.stroke()
+    }
+
+    drawStar(0,0)
+    drawStar(100,0)
+    drawStar(200,0)
+    drawStar(0,100)
+    drawStar(100,100)
+    drawStar(200,100)
+
+
+
+</script>
+
+</body>
+</html>
