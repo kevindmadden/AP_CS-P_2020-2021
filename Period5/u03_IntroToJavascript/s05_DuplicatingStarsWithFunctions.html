@@ -48,6 +48,7 @@
         ctx.stroke()
     }*/
 
+    /*
     function drawStar(xOffset, yOffset){
         ctx.beginPath()
         ctx.moveTo(25+xOffset,0+yOffset)
@@ -67,7 +68,22 @@
     drawStar(0, 50)
     drawStar(50, 50)
     drawStar(100, 50)
-    drawStar(150, 50)
+    drawStar(150, 50)*/
+
+
+    function drawStar(xOffset, yOffset, scale){
+        ctx.beginPath()
+        ctx.moveTo(25*scale+xOffset,0*scale+yOffset)
+        ctx.lineTo(45*scale+xOffset,50*scale+yOffset)
+        ctx.lineTo(0*scale+xOffset,20*scale+yOffset)
+        ctx.lineTo(50*scale+xOffset,20*scale+yOffset)
+        ctx.lineTo(5*scale+xOffset,50*scale+yOffset)
+        ctx.closePath()
+        ctx.stroke()
+    }
+
+    drawStar(0,0,1)
+    drawStar(0,0,2)
 
 
 
