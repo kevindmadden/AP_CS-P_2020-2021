@@ -51,21 +51,46 @@
 
     //Attempt #3 - Use a function with parameters
 
-    function drawStar(xShift){
+    function drawStar(xShift, yShift){
         ctx.beginPath()
-        ctx.moveTo(25+xShift,0)
-        ctx.lineTo(40+xShift,50)
-        ctx.lineTo(0+xShift,20)
-        ctx.lineTo(50+xShift,20)
-        ctx.lineTo(10+xShift,50)
+        ctx.moveTo(25+xShift,0+yShift)
+        ctx.lineTo(40+xShift,50+yShift)
+        ctx.lineTo(0+xShift,20+yShift)
+        ctx.lineTo(50+xShift,20+yShift)
+        ctx.lineTo(10+xShift,50+yShift)
         ctx.closePath()
         ctx.stroke()
         ctx.fill()
     }
 
-    drawStar(0)
-    drawStar(50)
-    drawStar(100)
+    drawStar(0,0)
+    drawStar(50,0)
+    drawStar(100,0)
+    drawStar(150,0)
+    drawStar(200,0)
+    drawStar(250,0)
+    drawStar(300,0)
+    drawStar(0,50)
+    drawStar(50,50)
+    drawStar(100,50)
+
+    //Bonus Attempt #4 -- Scaling factor
+    /*function drawStar(xShift, yShift, scaleFactor){
+        ctx.beginPath()
+        ctx.moveTo(25*scaleFactor+xShift,0*scaleFactor+yShift)
+        ctx.lineTo(40*scaleFactor+xShift,50*scaleFactor+yShift)
+        ctx.lineTo(0*scaleFactor+xShift,20*scaleFactor+yShift)
+        ctx.lineTo(50*scaleFactor+xShift,20*scaleFactor+yShift)
+        ctx.lineTo(10*scaleFactor+xShift,50*scaleFactor+yShift)
+        ctx.closePath()
+        ctx.stroke()
+        ctx.fill()
+    }
+
+    drawStar(0,0,10)
+    drawStar(0,0,0.5)
+     */
+
 
 
 
