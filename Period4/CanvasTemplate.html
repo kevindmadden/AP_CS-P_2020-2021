@@ -2,13 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Canvas Template</title>
+    <title>Intro to Canvas</title>
 </head>
 <body>
-<canvas id="canvas" width="400px" height="400px" style="border:1px solid #000000;" tabindex="1" autofocus></canvas>
-<script src="CanvasTemplate.js" type="text/javascript"></script>
+
+<canvas id="drawingPad" width="500" height="500" style="border: 1px solid black;"></canvas>
+<script>
+    //Canvas API: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
+    const myCanvas = document.getElementById("drawingPad")
+    const ctx = myCanvas.getContext('2d')
 
 
-<p id="coordinateValues">Coordinates - x: 0, y: 0</p>
+</script>
+
 </body>
 </html>
