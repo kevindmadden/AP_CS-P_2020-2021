@@ -50,7 +50,7 @@
     drawStar()*/
 
     //Attempt #3 - Use a function with parameters
-
+    //                  100      50
     function drawStar(xShift, yShift){
         ctx.beginPath()
         ctx.moveTo(25+xShift,0+yShift)
@@ -74,8 +74,16 @@
     drawStar(50,50)
     drawStar(100,50)
 
+    ctx.beginPath();
+    ctx.moveTo(100, 300);
+    ctx.lineTo(200, 300);
+    ctx.arc(200,320,20,(Math.PI/180)*270,(Math.PI/180)*0)
+    ctx.lineTo(220,400)
+    ctx.stroke();
+
+    /*
     //Bonus Attempt #4 -- Scaling factor
-    /*function drawStar(xShift, yShift, scaleFactor){
+    function drawStar(xShift, yShift, scaleFactor){
         ctx.beginPath()
         ctx.moveTo(25*scaleFactor+xShift,0*scaleFactor+yShift)
         ctx.lineTo(40*scaleFactor+xShift,50*scaleFactor+yShift)
@@ -89,7 +97,9 @@
 
     drawStar(0,0,10)
     drawStar(0,0,0.5)
-     */
+    */
+
+
 
 
 
