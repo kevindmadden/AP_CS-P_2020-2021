@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Intro To Canvas</title>
+</head>
+<body>
+
+<canvas id="drawingPad" width="500" height="500" style="border: 1px solid black"></canvas>
+<script>
+    //Canvas API: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
+    const myDrawingPad = document.getElementById("drawingPad")
+    const ctx = myDrawingPad.getContext("2d") //ctx is just referring to the fact that we want to draw in 2d on our canvas
+
+    //Thing #1: How to run a function
+    //This is an example of how you "run" a function. The term often used for running a function is "calling" a function.
+    drawUpperShape()
+
+    //Thing #2: You can call functions however many times you want
+    drawUpperShape()
+
+    function drawUpperShape(){
+        ctx.beginPath()
+        ctx.moveTo(25,0)
+        ctx.lineTo(25,25)
+        ctx.lineTo(50,25)
+        ctx.lineTo(50,50)
+        ctx.lineTo(75,50)
+        ctx.lineTo(75,25)
+        ctx.lineTo(100,25)
+        ctx.lineTo(100,0)
+        ctx.closePath()
+        ctx.stroke()
+        ctx.fillStyle = "red"
+        ctx.fill()
+    }
+
+</script>
+
+</body>
+</html>

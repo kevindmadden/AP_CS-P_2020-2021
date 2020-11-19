@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Intro To Canvas</title>
+</head>
+<body>
+
+<canvas id="drawingPad" width="500" height="500" style="border: 1px solid black"></canvas>
+<script>
+    //Canvas API: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
+    const myDrawingPad = document.getElementById("drawingPad")
+    const ctx = myDrawingPad.getContext("2d") //ctx is just referring to the fact that we want to draw in 2d on our canvas
+
+    //So the #1 best feature of functions is you can run them as many times as you want
+
+
+    drawLowerShape("purple", 0)
+    drawLowerShape("blue",250)
+
+    //Aside: The name that you give your variable doesn't matter as long as you're consistent.
+    // However, for organization purposes, you should give your variables names that make sense.
+    function drawLowerShape(color, xMove){
+        ctx.beginPath()
+        ctx.moveTo(0+xMove,75)
+        ctx.lineTo(25+xMove,75)
+        ctx.lineTo(25+xMove,50)
+        ctx.lineTo(50+xMove,50)
+        ctx.lineTo(50+xMove,75)
+        ctx.lineTo(75+xMove,75)
+        ctx.lineTo(75+xMove,100)
+        ctx.lineTo(0+xMove,100)
+        ctx.closePath()
+        ctx.stroke()
+        ctx.fillStyle=color
+        ctx.fill()
+    }
+
+
+</script>
+
+</body>
+</html>

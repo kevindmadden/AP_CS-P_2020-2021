@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Intro To Canvas</title>
+</head>
+<body>
+
+<canvas id="drawingPad" width="500" height="500" style="border: 1px solid black"></canvas>
+<script>
+    //Canvas API: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
+    const myDrawingPad = document.getElementById("drawingPad")
+    const ctx = myDrawingPad.getContext("2d") //ctx is just referring to the fact that we want to draw in 2d on our canvas
+
+    drawUpperShape("blue")
+
+    // In mathematics, you have variables!
+    // In coding, there are also variables.
+    // In math, when you see the symbol π, what that means is 3.14...
+    // So remember that a variable is basically a container that stores some value.
+
+    //                      color --> is a variable (the specific type of variable used here is called a parameter)
+    function drawUpperShape(color){
+        ctx.beginPath()
+        ctx.moveTo(25,0)
+        ctx.lineTo(25,25)
+        ctx.lineTo(50,25)
+        ctx.lineTo(50,50)
+        ctx.lineTo(75,50)
+        ctx.lineTo(75,25)
+        ctx.lineTo(100,25)
+        ctx.lineTo(100,0)
+        ctx.closePath()
+        ctx.stroke()
+        ctx.fillStyle = color
+        ctx.fill()
+    }
+
+</script>
+
+</body>
+</html>
