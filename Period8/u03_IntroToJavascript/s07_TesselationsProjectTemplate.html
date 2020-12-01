@@ -2,62 +2,57 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Intro To Canvas</title>
+    <title>Intro to Canvas</title>
 </head>
 <body>
 
-<canvas id="drawingPad" width="500" height="500" style="border: 1px solid black"></canvas>
+<canvas id="drawingPad" width="500" height="500" style="border: 1px solid black;"></canvas>
 <script>
     //Canvas API: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
-    const myDrawingPad = document.getElementById("drawingPad")
-    const ctx = myDrawingPad.getContext("2d") //ctx is just referring to the fact that we want to draw in 2d on our canvas
+    const myCanvas = document.getElementById("drawingPad")
+    const ctx = myCanvas.getContext('2d')
+
+    //Call functions to draw tessselation
+    drawLeftShape("yellow", 0)
+
+
+    //Lower (green) shape   --> transform into function
+    ctx.beginPath()
+    ctx.moveTo(0,75)
+    ctx.lineTo(25,75)
+    ctx.lineTo(25,50)
+    ctx.lineTo(50,50)
+    ctx.lineTo(50,75)
+    ctx.lineTo(75,75)
+    ctx.lineTo(75,100)
+    ctx.lineTo(0,100)
+    ctx.closePath()
+    ctx.stroke()
+    ctx.fillStyle="green"
+    ctx.fill()
+
+    //Upper (red) shape  --> transform into function
+    ctx.beginPath()
+    ctx.moveTo(25,0)
+    ctx.lineTo(25,25)
+    ctx.lineTo(50,25)
+    ctx.lineTo(50,50)
+    ctx.lineTo(75,50)
+    ctx.lineTo(75,25)
+    ctx.lineTo(100,25)
+    ctx.lineTo(100,0)
+    ctx.closePath()
+    ctx.stroke()
+    ctx.fillStyle = "red"
+    ctx.fill()
+
+    //Right (blue) shape  --> Draw the shape --> transform into function
+    //Write code to draw that shape here
+
 
     /*
-        Drawing Section (the place where you call your functions to draw stuff)
+        Functions
      */
-
-    //drawUpperShape("red", 0)
-    //drawLeftShape("green",0)
-    drawTwoShapesAtOnce(0)
-
-    //drawUpperShape("red", 100)
-    //drawLeftShape("green",100)
-    drawTwoShapesAtOnce(100)
-
-    //drawUpperShape("red", 200)
-    //drawLeftShape("green",200)
-    drawTwoShapesAtOnce(200)
-
-    //drawUpperShape("red", 300)
-    //drawLeftShape("green",300)
-    drawTwoShapesAtOnce(300)
-
-    //drawUpperShape("red", 400)
-    //drawLeftShape("green",400)
-    drawTwoShapesAtOnce(400)
-
-    function drawTwoShapesAtOnce(xMove){
-        drawUpperShape("red",xMove)
-        drawLeftShape("green",xMove)
-    }
-
-    //Upper (red) shape --> transform this function so that it has a yMove
-    function drawUpperShape(color, xMove){
-        ctx.beginPath()
-        ctx.moveTo(25+xMove,0)
-        ctx.lineTo(25+xMove,25)
-        ctx.lineTo(50+xMove,25)
-        ctx.lineTo(50+xMove,50)
-        ctx.lineTo(75+xMove,50)
-        ctx.lineTo(75+xMove,25)
-        ctx.lineTo(100+xMove,25)
-        ctx.lineTo(100+xMove,0)
-        ctx.closePath()
-        ctx.stroke()
-        ctx.fillStyle = color
-        ctx.fill()
-    }
-
     function drawLeftShape(color, xMove){
         ctx.beginPath()
         ctx.moveTo(0+xMove,0)
@@ -73,7 +68,6 @@
         ctx.fillStyle=color
         ctx.fill()
     }
-
 
 </script>
 
