@@ -16,12 +16,43 @@
         Drawing Section (the place where you call your functions to draw stuff)
      */
 
+    /*
+        Advantages of New Way:
+            1. Less code, less space used
+            2. Easier to read
+            3. Less tedious to write
+            4. More manageable - better organization
+            5. More efficient
+            6. It's the lazier way, but it's better
+            7. It's harder to make stupid mistakes (brain glitches)
+    */
+
+
+    /*
+    //Old Way
     drawUpperShape("red", 0)
+    drawLeftShape("yellow",0)
     drawUpperShape("red", 100)
+    drawLeftShape("yellow",100)
+    drawUpperShape("red", 200)
+    drawLeftShape("yellow",200)
+    drawUpperShape("red", 300)
+    drawLeftShape("yellow",300)
+    drawUpperShape("red", 400)
+    drawLeftShape("yellow",400)
+    */
 
-    drawLeftShape("yellow", 0)
-    drawLeftShape("yellow", 100)
+    //New Way
+    drawTwoShapesAtOnce(0)
+    drawTwoShapesAtOnce(100)
+    drawTwoShapesAtOnce(200)
+    drawTwoShapesAtOnce(300)
+    drawTwoShapesAtOnce(400)
 
+    function drawTwoShapesAtOnce(xMove){
+        drawUpperShape("red",xMove)
+        drawLeftShape("yellow",xMove)
+    }
 
 
     /*
@@ -45,21 +76,23 @@
         ctx.fill()
     }
 
-    function drawLeftShape(){
+    function drawLeftShape(color,xMove){
         ctx.beginPath()
-        ctx.moveTo(0,0)
-        ctx.lineTo(25,0)
-        ctx.lineTo(25,25)
-        ctx.lineTo(50,25)
-        ctx.lineTo(50,50)
-        ctx.lineTo(25,50)
-        ctx.lineTo(25,75)
-        ctx.lineTo(0,75)
+        ctx.moveTo(xMove+0,0)
+        ctx.lineTo(xMove+25,0)
+        ctx.lineTo(xMove+25,25)
+        ctx.lineTo(xMove+50,25)
+        ctx.lineTo(xMove+50,50)
+        ctx.lineTo(xMove+25,50)
+        ctx.lineTo(xMove+25,75)
+        ctx.lineTo(xMove+0,75)
         ctx.closePath()
         ctx.stroke()
-        ctx.fillStyle="yellow"
+        ctx.fillStyle=color
         ctx.fill()
     }
+
+
 
 
 
