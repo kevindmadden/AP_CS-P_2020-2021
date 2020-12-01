@@ -16,30 +16,17 @@
         Drawing Section (the place where you call your functions to draw stuff)
      */
 
-    //drawUpperShape("red", 0)
-    //drawLeftShape("green",0)
-    drawTwoShapesAtOnce(0)
+    drawUpperShape("red", 0)
+    drawUpperShape("red", 100)
 
-    //drawUpperShape("red", 100)
-    //drawLeftShape("green",100)
-    drawTwoShapesAtOnce(100)
+    drawLeftShape("yellow", 0)
+    drawLeftShape("yellow", 100)
 
-    //drawUpperShape("red", 200)
-    //drawLeftShape("green",200)
-    drawTwoShapesAtOnce(200)
 
-    //drawUpperShape("red", 300)
-    //drawLeftShape("green",300)
-    drawTwoShapesAtOnce(300)
 
-    //drawUpperShape("red", 400)
-    //drawLeftShape("green",400)
-    drawTwoShapesAtOnce(400)
-
-    function drawTwoShapesAtOnce(xMove){
-        drawUpperShape("red",xMove)
-        drawLeftShape("green",xMove)
-    }
+    /*
+        Functions (this is where you write the functions that are able to draw stuff if called)
+     */
 
     //Upper (red) shape --> transform this function so that it has a yMove
     function drawUpperShape(color, xMove){
@@ -58,21 +45,24 @@
         ctx.fill()
     }
 
-    function drawLeftShape(color, xMove){
+    function drawLeftShape(){
         ctx.beginPath()
-        ctx.moveTo(0+xMove,0)
-        ctx.lineTo(25+xMove,0)
-        ctx.lineTo(25+xMove,25)
-        ctx.lineTo(50+xMove,25)
-        ctx.lineTo(50+xMove,50)
-        ctx.lineTo(25+xMove,50)
-        ctx.lineTo(25+xMove,75)
-        ctx.lineTo(0+xMove,75)
+        ctx.moveTo(0,0)
+        ctx.lineTo(25,0)
+        ctx.lineTo(25,25)
+        ctx.lineTo(50,25)
+        ctx.lineTo(50,50)
+        ctx.lineTo(25,50)
+        ctx.lineTo(25,75)
+        ctx.lineTo(0,75)
         ctx.closePath()
         ctx.stroke()
-        ctx.fillStyle=color
+        ctx.fillStyle="yellow"
         ctx.fill()
     }
+
+
+
 
 
 </script>
