@@ -13,29 +13,37 @@
     const ctx = myCanvas.getContext('2d')
 
     //Call functions to draw tessselation
-    //drawLeftShape("yellow", 0)
-    //drawLowerShape("red",0)
 
+    /*
+    Advantages of New way versus old way
+        1. Organization
+        2. Less room to make mistakes
+        3. Less time consuming
+     */
+
+
+    /*
+    Old Way:
+        drawLeftShape("yellow", 0)
+        drawLowerShape("red",0)
+        drawLeftShape("yellow",100)
+        drawLowerShape("red",100)
+        drawLeftShape("yellow",200)
+        drawLowerShape("red",200)
+        drawLeftShape("yellow",300)
+        drawLowerShape("red",300)
+        drawLeftShape("yellow",400)
+        drawLowerShape("red",400)
+     */
+
+
+    //New way - Calling a function that calls two other functions
     drawBothShapesAtOnce(0)
-
-    //drawLeftShape("yellow",100)
-    //drawLowerShape("red",100)
-
     drawBothShapesAtOnce(100)
-
-    //drawLeftShape("yellow",200)
-    //drawLowerShape("red",200)
     drawBothShapesAtOnce(200)
-
-    //drawLeftShape("yellow",300)
-    //drawLowerShape("red",300)
     drawBothShapesAtOnce(300)
-
-    //drawLeftShape("yellow",400)
-    //drawLowerShape("red",400)
     drawBothShapesAtOnce(400)
-
-
+    
     function drawBothShapesAtOnce(xMove){
         drawLeftShape("yellow",xMove)
         drawLowerShape("red",xMove)
