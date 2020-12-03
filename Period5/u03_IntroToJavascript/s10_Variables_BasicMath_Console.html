@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Intro To Canvas</title>
+</head>
+<body>
+
+<canvas id="drawingPad" width="500" height="500" style="border: 1px solid black"></canvas>
+<script>
+    //Canvas API: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
+    const myDrawingPad = document.getElementById("drawingPad")
+    const ctx = myDrawingPad.getContext("2d") //ctx is just referring to the fact that we want to draw in 2d on our canvas
+
+    let myFirstVariable = "Yay!"
+    ctx.fillText(myFirstVariable,250,250)
+
+    let mySecondVariable = "Glitch detected!"
+    console.log(mySecondVariable)
+
+    //var myOldFashionedVariable = "Hi!" //This is the old way to make variables. New way is better.
+
+    let length = 5
+    let width = 10
+    let rectArea = length*width
+    console.log(rectArea)
+
+    width = 20
+    rectArea=length*width
+    console.log(rectArea)
+
+    // Basic Math Operation You Can Use:
+    // + (add), - (subtract), * (multiply), / (divide)
+
+
+
+
+
+
+
+
+
+
+</script>
+
+</body>
+</html>

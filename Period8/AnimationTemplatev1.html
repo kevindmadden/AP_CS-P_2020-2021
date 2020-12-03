@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Intro To Canvas</title>
+</head>
+<body>
+<canvas id="drawingPad" width="500" height="500" style="border: 1px solid black"></canvas>
+<script>
+    //Canvas API: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
+    const canvas = document.getElementById("drawingPad")
+    const ctx = canvas.getContext("2d") //ctx is just referring to the fact that we want to draw in 2d on our canvas
+
+
+
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    // Mouse/Cursor Input
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    function getCursorPosition(canvas, event) {
+        const rect = canvas.getBoundingClientRect()
+        let xCursorPos = event.clientX - rect.left
+        let yCursorPos = event.clientY - rect.top
+        document.getElementById("coordinateValues").innerHTML = "Coordinates - x: "+xCursorPos+", y: "+yCursorPos
+    }
+
+    canvas.addEventListener('mousemove', function(e) {
+        getCursorPosition(canvas, e)
+    })
+
+</script>
+<p id="coordinateValues">Coordinates - x: 0, y: 0</p>
+</body>
+</html>
