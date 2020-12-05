@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <canvas id="drawingPad" width="500" height="500" style="border: 1px solid black"></canvas>
+    <script>
+        //Canvas API: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
+        const myDrawingPad = document.getElementById("drawingPad")
+        const ctx = myDrawingPad.getContext("2d") //ctx is just referring to the fact that we want to draw in 2d on our canvas
+        //Do not edit stuff above
+
+
+        /*
+         1. How do we efficiently create drawings that are just slightly different from each other?
+
+         (a) Suppose you're driving down the highway at 70mph. If you travel 2 hours total, how many miles did you travel?
+         70mph*2hours
+         140 miles
+
+         (b) You have already traveled 200 miles today. Right now you're driving down the highway at 70mph. If you travel 2 hours total, how many miles in total will you have traveled today?
+         xPos = xPos + velocity*time
+         xPos = 200 + 70*2
+
+
+         (c) Suppose you have a square that is located at an xPos of 20. Let's say that this square is traveling at 50 pixels per second. Where is the square now located if it has traveled for 3 seconds?
+            xPos = xPos + velocity*time
+            xPos = 20 + 50*3
+            xPos = 170
+
+         (d) Suppose you have a square that is located at an xPos of 20. Let's say that this square is traveling at 50 pixels per second. Where is the square now located if it has traveled for a total of 1/60 seconds (decimal is 0.0166666667).
+            xPos = xPos + velocity*time
+            xPos = 20 + 50*(1/60)
+            xPos = 20.8333333
+            So let's say we want to figure out the next frame! So our square is currently at 20.8333333. Speed and framerate are the same.
+            xPos = xPos + velocity*time
+            xPos = 20.8333333 + 50*(1/60)
+            xPos = 21.6666666
+
+      Answer: Basic physics, velocity * time, etc.
+
+
+    2. How do we get still drawings to flash by rapidly?
+        Answer: Every 1/60th of a second, erase the entire canvas and draw the next frame.
+
+         */
+
+        let xPos = 0
+        let xVel = 80
+
+
+        let prevTimeStamp = 0
+        window.requestAnimationFrame(gameLoop)
+        function gameLoop(currentTimeStamp){
+            let timeElapsed = (currentTimeStamp - prevTimeStamp)/1000
+            prevTimeStamp = currentTimeStamp
+
+            xPos = xPos + xVel*timeElapsed
+
+            ctx.clearRect(0,0,500,500)
+            ctx.fillRect(xPos,250,60,80)
+
+
+
+
+            window.requestAnimationFrame(gameLoop)
+        }
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

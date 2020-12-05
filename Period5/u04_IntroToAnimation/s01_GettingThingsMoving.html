@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <canvas id="drawingPad" width="500" height="500" style="border: 1px solid black"></canvas>
+    <script>
+        //Canvas API: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
+        const myDrawingPad = document.getElementById("drawingPad")
+        const ctx = myDrawingPad.getContext("2d") //ctx is just referring to the fact that we want to draw in 2d on our canvas
+        //Do not edit stuff above
+
+        /*
+         1. How do we efficiently create drawings that are just slightly different from each other?
+
+         (a) Suppose you're driving down the highway at 70mph. If you travel 2 hours total, how many miles did you travel?
+                70mph * 2hours = 140 miles
+
+         (b) You have already traveled 200 miles today. Right now you're driving down the highway at 70mph. If you travel 2 hours total, how many miles in total will you have traveled today?
+                xPos = xPos + velocity * time
+                xPos = 200miles + 70mph * 2hours
+                xPos = 340 miles
+
+         (c) Suppose you have a square that is located at an xPos of 20. Let's say that this square is traveling at 50 pixels per second. Where is the square now located if it has traveled for 3 seconds?
+                xPos = xPos + velocity * time
+                xPos = 20 + 50*3
+                xPos = 170
+
+         (d) Suppose you have a square that is located at an xPos of 20. Let's say that this square is traveling at 50 pixels per second. Where is the square now located if it has traveled for a total of 1/60 seconds (decimal is 0.0166666667).
+                xPos = xPos + velocity * time
+                xPos = 20 + 50 * (1/60)
+                xPos = 20.8333333
+             So the square is now at an xPos of 20.8333333. Where will the square be after another 1/60th of a second?
+                xPos = xPos + velocity * time
+                xPos = 20.8333333 + 50*(1/60)
+                xPos = 21.6666666
+         Answer: Some simple physics calculations repeated every 1/60th of a second will make it relatively painless to determine where the square should be.
+
+    2. How do we get still drawings to flash by rapidly?
+        Answer: Every 1/60th of a second erase the current drawing and draw the new frame on top.
+*/
+
+        let xPos = 0
+        let xVel = 40 // px/sec
+
+        window.requestAnimationFrame(gameLoop)
+
+        function gameLoop(currentTimeStamp){
+
+
+
+        }
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <canvas id="drawingPad" width="500" height="500" style="border: 1px solid black"></canvas>
+    <script>
+        //Canvas API: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
+        const myDrawingPad = document.getElementById("drawingPad")
+        const ctx = myDrawingPad.getContext("2d") //ctx is just referring to the fact that we want to draw in 2d on our canvas
+        //Do not edit stuff above
+
+        // 1. How do we efficiently create drawings that are just slightly different from each other?
+        //
+        // (a) Suppose you're driving down the highway at 70mph. If you travel 2 hours total, how many miles did you travel?
+        // 70mph * 2 hours = 140 miles
+        // velocity * timeElapsed = position
+        //
+        // (b) You have already traveled 200 miles today. Right now you're driving down the highway at 70mph. If you travel 2 hours total, how many miles in total will you have traveled today?
+        // xPos = xPos + velocity * time
+        // xPos = 200 + 70*2
+        // xPos = 340 miles total
+        //
+        // (c) Suppose you have a square that is located at an xPos of 20. Let's say that this square is traveling at 50 pixels per second. Where is the square now located if it has traveled for 3 seconds.
+        // xPos = xPos + velocity*time
+        // xPos = 20 + 50*3
+        // xPos = 170
+        //
+        // (d) Suppose you have a square that is located at an xPos of 20. Let's say that this square is traveling at 50 pixels per second. Where is the square now located if it has traveled for a total of 1/60 seconds (decimal is 0.0166666667).
+        // xPos = xPos + velocity*time
+        // xPos = 20 + 50*(1/60)
+        // xPos = 20.8333333
+        //
+        // So the square traveled from an xPos of 20 to an xPos of 20.8333333 in 1/60 of a second.
+        //
+        // So now where is the square after another 1/60th of a second passes?
+        // xPos = xPos + velocity*time
+        // xPos = 20.8333333 + 50*(1/60)
+        // xPos = 21.6666666
+        //
+        // So the square traveled from 20.8333333 to 21.6666666 in 1/60 of a second.
+        //
+        // Answer: So we can continually recalculate a new xPos for our square ever 1/60th of a second because
+        //              we can use code to do it! (Obviously, you couldn't do this by hand.)
+
+
+        // 2. How do we get still drawings to flash by rapidly?
+        //      We need to be able to accomplish the following: Draw the square where it should be located every 1/60th
+        //      of a second.
+
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

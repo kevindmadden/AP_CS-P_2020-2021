@@ -12,27 +12,25 @@
     const myDrawingPad = document.getElementById("drawingPad")
     const ctx = myDrawingPad.getContext("2d") //ctx is just referring to the fact that we want to draw in 2d on our canvas
 
-    let myFirstVariable = "The boom went boom!"
-    ctx.fillText(myFirstVariable, 250, 250)
+    let myFirstVariable = "Yay!"
+    ctx.fillText(myFirstVariable,250,250)
 
-    //myFirstVariable="The boom went boom!!!!!!!!"
-    myFirstVariable = myFirstVariable + "!!!!!!!!"
-    ctx.fillText(myFirstVariable, 250, 350)
+    let mySecondVariable = "Glitch detected!"
+    console.log(mySecondVariable)
 
-    let myWarning = "Weird glitch occurred. Reminder to myself to look at _____________"
-    console.log(myWarning)
+    //var myOldFashionedVariable = "Hi!" //This is the old way to make variables. New way is better.
 
-
-    let length = 7
+    let length = 5
     let width = 10
-    console.log(length*width)
+    let rectArea = length*width
+    console.log(rectArea)
 
-    //Basic Math Operations
-    // +
-    // -
-    // * multiply
-    // / divide
+    width = 20
+    rectArea=length*width
+    console.log(rectArea)
 
+    // Basic Math Operation You Can Use:
+    // + (add), - (subtract), * (multiply), / (divide)
 
 
 
