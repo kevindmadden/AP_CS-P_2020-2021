@@ -45,8 +45,42 @@
 
 
         // 2. How do we get still drawings to flash by rapidly?
-        //      We need to be able to accomplish the following: Draw the square where it should be located every 1/60th
-        //      of a second.
+        //      We want to redraw a new frame every 1/60th of a second.
+        //      (When you draw a new frame, you also want to erase the previous frame.)
+
+
+
+        /*
+        call requestAnimationFrame(gameLoop)
+            passing the function gameLoop
+            requestionAnimationFrame does fancy stuff in the background
+            eventually, requestionAnimationFrame calls gameLoop
+            when gameLoop is called, it gets passed the current time stamp
+        gameLoop runs
+            (Inside of gameLoop is where all of the drawing happens
+
+         */
+
+        let xPos = 0
+        let xVel = 80 // px/sec
+
+        let prevTimeStamp = 0
+
+        window.requestAnimationFrame(gameLoop)
+
+        function gameLoop(currentTimeStamp){
+            let timeElapsed = (currentTimeStamp - prevTimeStamp)/1000
+            prevTimeStamp = currentTimeStamp
+            ctx.clearRect(0,0,500,500)
+
+            xPos = xPos + xVel * timeElapsed
+            ctx.fillRect(xPos, 250, 50, 80)
+
+
+
+
+            window.requestAnimationFrame(gameLoop)
+        }
 
 
 
