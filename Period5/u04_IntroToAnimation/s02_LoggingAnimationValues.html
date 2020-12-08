@@ -11,12 +11,26 @@
         //Do not edit stuff above
 
 
+        let xPos = 30
+        let xVel = 20 // px/sec
+
+
         let prevTimeStamp = 0
         window.requestAnimationFrame(gameLoop)
         function gameLoop(currentTimeStamp){
+            console.log("- - - - - - - - - - -")
+            console.log("currentTimeStamp: "+currentTimeStamp)
+            console.log("prevTimeStamp: "+prevTimeStamp)
             let timeElapsed = (currentTimeStamp-prevTimeStamp)/1000
+            console.log("timeElapsed: "+timeElapsed)
             prevTimeStamp = currentTimeStamp
+            ctx.clearRect(0,0,500,500)
 
+            xPos = xPos + xVel*timeElapsed
+
+            console.log("xPos: "+xPos)
+            console.log("xVel: "+xVel) //stays constant
+            ctx.fillRect(xPos,250,50,80)
 
 
 
