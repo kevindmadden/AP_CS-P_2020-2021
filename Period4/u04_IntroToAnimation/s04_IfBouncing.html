@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <canvas id="drawingPad" width="500" height="500" style="border: 1px solid black"></canvas>
+    <script>
+        //Canvas API: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
+        const myDrawingPad = document.getElementById("drawingPad")
+        const ctx = myDrawingPad.getContext("2d") //ctx is just referring to the fact that we want to draw in 2d on our canvas
+        //Do not edit stuff above
+
+        let xPos = 20
+        let xVel = 120 // px/sec
+        let yPos = 100
+        let yVel = 120
+
+
+        let prevTimeStamp = 0
+        window.requestAnimationFrame(gameLoop)
+        function gameLoop(currentTimeStamp){
+            let timeElapsed = (currentTimeStamp-prevTimeStamp)/1000
+            prevTimeStamp = currentTimeStamp
+            ctx.clearRect(0,0,500,500)
+
+            //Calculations
+            xPos = xPos + xVel*timeElapsed
+            yPos = yPos + yVel*timeElapsed
+            console.log("("+xPos+","+yPos+")")
+
+
+            /*
+            Symbols you can use in if statements
+                <    less than
+                <=   less than or equal to
+                >    greater than
+                >=   greater than or equal to
+                ==   equal to
+                !=   not equal to
+             */
+
+            if(yPos < 0){
+                yVel = 120
+            }
+
+            if(xPos < 0){
+                xVel = 120
+            }
+
+            if(yPos+80 > 500){
+                //yPos = 0
+                yVel = -120
+            }
+
+            if(xPos+50 > 500){
+                //xPos = 0
+                xVel=-120
+            }
+
+            //Drawing
+            ctx.fillRect(xPos,yPos,50,80)
+
+            window.requestAnimationFrame(gameLoop)
+        }
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
