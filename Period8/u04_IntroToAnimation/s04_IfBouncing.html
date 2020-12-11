@@ -10,24 +10,10 @@
         const ctx = myDrawingPad.getContext("2d") //ctx is just referring to the fact that we want to draw in 2d on our canvas
         //Do not edit stuff above
 
-        let xPos = 20
-        let xVel = 10 // px/sec
+        let xPos = 250
+        let xVel = 120 // px/sec
         let yPos = 100
-        let yVel = 80 // px/sec
-
-        /*
-
-
-
-        ANNOUNCEMENT: CLASS ON MONDAY IS ASYNC
-
-
-
-
-
-         */
-
-
+        let yVel = 120 // px/sec
 
 
         let prevTimeStamp = 0
@@ -36,10 +22,39 @@
             let timeElapsed = (currentTimeStamp-prevTimeStamp)/1000
             prevTimeStamp = currentTimeStamp
             ctx.clearRect(0,0,500,500)
-
+            console.log(xPos)
 
             xPos = xPos + xVel*timeElapsed
             yPos = yPos + yVel*timeElapsed
+
+            /*
+                Symbols in If Statements:
+
+                >   greater than
+                >=  greater than or equal to
+                <   less than
+                <=  less than or equal to
+                ==  equal to
+                !=  not equal to
+
+             */
+
+
+            if(xPos+50 > 500){
+                xVel = -120
+            }
+
+            if(yPos+80 > 500){
+                yVel = -120
+            }
+
+            if(xPos < 0){
+                xVel = 120
+            }
+
+            if(yPos < 0){
+                yVel = 120
+            }
 
 
             ctx.fillRect(xPos,yPos,50,80)
