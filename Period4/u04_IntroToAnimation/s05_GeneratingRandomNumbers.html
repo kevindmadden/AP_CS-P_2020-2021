@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <canvas id="drawingPad" width="500" height="500" style="border: 1px solid black"></canvas>
+    <script>
+        //Canvas API: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
+        const myDrawingPad = document.getElementById("drawingPad")
+        const ctx = myDrawingPad.getContext("2d") //ctx is just referring to the fact that we want to draw in 2d on our canvas
+        //Do not edit stuff above
+
+        let xPos = 20
+        let xVel = 120 // px/sec
+        let yPos = 100
+        let yVel = 120
+
+        /*
+            Video to Watch:
+                https://www.youtube.com/watch?v=1cUUfMeOijg
+         */
+
+
+        //Random number between 0 inclusive and 1 exclusive.
+        // This means it will give you a random number that could be 0, but the highest number it will
+        //   return to you is 0.999999999999...
+
+        //Example #1: of a randomly generated number
+        console.log("Example 1:")
+        console.log(Math.random())
+
+        //Example #2: store a random number in a variable, and then manipulate that value so it is more useful
+        console.log("Example 2:")
+        let randomNum1 = Math.random()
+        console.log(randomNum1)
+        randomNum1 = randomNum1*100
+        console.log(randomNum1)
+
+
+
+
+
+        let prevTimeStamp = 0
+        window.requestAnimationFrame(gameLoop)
+        function gameLoop(currentTimeStamp){
+            let timeElapsed = (currentTimeStamp-prevTimeStamp)/1000
+            prevTimeStamp = currentTimeStamp
+            ctx.clearRect(0,0,500,500)
+
+            //Calculations
+            xPos = xPos + xVel*timeElapsed
+            yPos = yPos + yVel*timeElapsed
+
+
+
+            if(yPos < 0){
+                yVel = 120
+            }
+            if(xPos < 0){
+                xVel = 120
+            }
+            if(yPos+80 > 500){
+                //So if the rectangle dips below 500, then set it so that it is exactly on the edge
+                //The reason why we need this is to prevent a situation where the rectangle is below 500
+                //  for multiple frames.
+                yPos = 500-80
+
+                let randomNum1 = Math.random()
+                randomNum1 = randomNum1*100+50
+                randomNum1 = randomNum1*(-1)
+                yVel = randomNum1
+
+                console.log("Velocity changed to: " + randomNum1)
+                //yVel = -120
+            }
+            if(xPos+50 > 500){
+                xVel=-120
+            }
+
+            //Drawing
+            ctx.fillRect(xPos,yPos,50,80)
+
+            window.requestAnimationFrame(gameLoop)
+        }
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

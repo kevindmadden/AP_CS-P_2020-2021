@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <canvas id="drawingPad" width="500" height="500" style="border: 1px solid black"></canvas>
+    <script>
+        //Canvas API: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
+        const myDrawingPad = document.getElementById("drawingPad")
+        const ctx = myDrawingPad.getContext("2d") //ctx is just referring to the fact that we want to draw in 2d on our canvas
+        //Do not edit stuff above
+
+        let xPos = 250
+        let xVel = 120 // px/sec
+        let yPos = 100
+        let yVel = 120 // px/sec
+
+
+        /*
+                Random Numbers
+                    Video from class: https://www.youtube.com/watch?v=1cUUfMeOijg
+                    Question of the day: How can we make the velocity a random number instead of always the same number?
+                    Answer: Use Math.random()
+                    TODO: Make final change so that velocity can't be super tiny.
+             */
+
+        //Example #1: Generating a Random Num
+        console.log(Math.random())
+
+        //Example #2: Making the random number more useful
+        let randomNum1 = Math.random()
+        console.log(randomNum1)
+        randomNum1 = randomNum1*100
+        console.log(randomNum1)
+
+
+        let prevTimeStamp = 0
+        window.requestAnimationFrame(gameLoop)
+        function gameLoop(currentTimeStamp){
+            let timeElapsed = (currentTimeStamp-prevTimeStamp)/1000
+            prevTimeStamp = currentTimeStamp
+            ctx.clearRect(0,0,500,500)
+
+            xPos = xPos + xVel*timeElapsed
+            yPos = yPos + yVel*timeElapsed
+
+            if(xPos+50 > 500){
+                xPos = 500-50
+                let randomNum2 = Math.random()
+                randomNum2 = randomNum2*100*(-1)
+                xVel = randomNum2
+                console.log("Hit right wall")
+                console.log(randomNum2)
+
+            }
+
+            if(yPos+80 > 500){
+                yVel = -120
+            }
+
+            if(xPos < 0){
+                xVel = 120
+            }
+
+            if(yPos < 0){
+                yVel = 120
+            }
+
+            ctx.fillRect(xPos,yPos,50,80)
+
+
+
+            window.requestAnimationFrame(gameLoop)
+        }
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
