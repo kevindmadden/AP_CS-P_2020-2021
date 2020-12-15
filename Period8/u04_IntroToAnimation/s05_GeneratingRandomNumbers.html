@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <canvas id="drawingPad" width="500" height="500" style="border: 1px solid black"></canvas>
+    <script>
+        //Canvas API: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
+        const myDrawingPad = document.getElementById("drawingPad")
+        const ctx = myDrawingPad.getContext("2d") //ctx is just referring to the fact that we want to draw in 2d on our canvas
+        //Do not edit stuff above
+
+
+
+
+
+
+        //TODO: How can we avoid setting the xVel to a velocity that is way too small???
+
+
+
+
+
+
+
+        let xPos = 250
+        let xVel = 120 // px/sec
+        let yPos = 100
+        let yVel = 120 // px/sec
+
+        /*
+            Randomness
+            Question of the Day: How do you go about generating random numbers?
+            Answer: Associate numbers with something that is unpredictable. For example, you could use lava lamps.
+
+            Video to watch about randomness generated with lava lamps (and more!):
+            https://www.youtube.com/c/TomScottGo/videos
+
+            Goal of the Day:
+                Set the xVel to a random negative number whenever the rectangle hits the right wall.
+         */
+
+        //  Math.random() returns a value between 0 (inclusive) and 1 (exclusive).
+        //      https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+        //  When a function returns a value, it means that the function call will ultimately
+        //    turn into the returned value.
+        //  For example, look at the below code that generates a random number and then logs it.
+        console.log(Math.random())
+        // Let's suppose that the random number generated is 0.5274086289651665.
+        // After the Math.random() function is run, behind the scenes the code simplifies so that the returned
+        // value "appears" where the Math.random() call was at formerly.
+        // console.log(0.5274086289651665)
+
+
+
+
+        let prevTimeStamp = 0
+        window.requestAnimationFrame(gameLoop)
+        function gameLoop(currentTimeStamp){
+            let timeElapsed = (currentTimeStamp-prevTimeStamp)/1000
+            prevTimeStamp = currentTimeStamp
+            ctx.clearRect(0,0,500,500)
+
+            xPos = xPos + xVel*timeElapsed
+            yPos = yPos + yVel*timeElapsed
+
+
+
+            //Right Wall detection
+            if(xPos+50 > 500){
+                console.log("Manipulate Random Number")
+                let randomNum1 = Math.random() //stores a randomly generated number in randomNum1
+                /* The below two lines of code manipulate the random number so that it is
+                 more useful for our purposes. This is needed because our animation would get pretty slow
+                 and boring if the xVel got set to a number between 0 and 1.
+                 */
+                console.log("randomNum1 currently has a value of: "+randomNum1)
+                randomNum1 = randomNum1*100 //Move the decimal two places to the right
+                console.log("randomNum1 currently has a value of: "+randomNum1)
+                randomNum1 = randomNum1*(-1) //Make the number negative
+                console.log("randomNum1 currently has a value of: "+randomNum1)
+                xVel = randomNum1 //Set the new xVel to have the value stored inside randomNum1.
+                console.log("The number now stored in xVel is: "+xVel)
+
+                /*
+                    Change the xPos so that the rectangle is exactly lined up with the right wall.
+                    This is needed to avoid accidentally detecting a collision with the wall multiple times.
+                    Rewatch recording for the full explanation.
+                 */
+                xPos = 500 - 50
+
+                console.log("Hit Wall:")
+                console.log(xVel)
+            }
+
+            //Bottom Wall detection
+            if(yPos+80 > 500){
+                yVel = -120
+            }
+
+            //Right Wall detection
+            if(xPos < 0){
+                xVel = 120
+            }
+
+            //Top Wall detection
+            if(yPos < 0){
+                yVel = 120
+            }
+
+
+            ctx.fillRect(xPos,yPos,50,80)
+
+            window.requestAnimationFrame(gameLoop)
+        }
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
