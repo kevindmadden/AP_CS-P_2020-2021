@@ -65,16 +65,27 @@
                 //  for multiple frames.
                 yPos = 500-80
 
-                let randomNum1 = Math.random()
-                randomNum1 = randomNum1*100+50
+                //
+                // 0.00000  0.0564356   0.50000     0.897986    0.9999999 (1)
+                //    *756       *756      *756         *756         *756
+                // -------  ---------               --------    ---------
+                //      0                                                 (756)
+
+                let randomNum1 = Math.random()  //Unsimplified way of getting random numbers using a fair amount of math
+                randomNum1 = randomNum1*756
                 randomNum1 = randomNum1*(-1)
                 yVel = randomNum1
 
-                console.log("Velocity changed to: " + randomNum1)
+                console.log("Bottom Wall Hit! - Velocity changed to: " + randomNum1)
                 //yVel = -120
             }
             if(xPos+50 > 500){
-                xVel=-120
+                //Example using random integer function (see towards bottom for function)
+
+                //xVel=-120
+                xVel=getRndInteger(-500,-50) //Simplified way of getting random numbers
+                console.log("Right Wall Hit! - Velocity changed to: "+xVel)
+
             }
 
             //Drawing
@@ -82,6 +93,20 @@
 
             window.requestAnimationFrame(gameLoop)
         }
+
+        function getRndInteger(min, max) {
+            return Math.floor(Math.random() * (max - min) ) + min;
+        }
+
+
+        /*
+            Ideas On Things to Randomize:
+            -Randomize velocity when other two walls get hit.
+            -You could randomize the color. (rgb color format here; it's a # between 0 and 255 for each spot: https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Applying_styles_and_colors)
+            -Randomize the size of the rectangle (trickier to do)
+            -Randomize the starting position of the rectangle
+
+         */
 
 
 
