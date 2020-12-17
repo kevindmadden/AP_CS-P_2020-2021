@@ -22,7 +22,6 @@
                     Video from class: https://www.youtube.com/watch?v=1cUUfMeOijg
                     Question of the day: How can we make the velocity a random number instead of always the same number?
                     Answer: Use Math.random()
-                    TODO: Make final change so that velocity can't be super tiny.
              */
 
         //Example #1: Generating a Random Num
@@ -45,9 +44,10 @@
             xPos = xPos + xVel*timeElapsed
             yPos = yPos + yVel*timeElapsed
 
+            //Right Wall Detection
             if(xPos+50 > 500){
                 xPos = 500-50
-                let randomNum2 = Math.random() // 0.0000000000000000... 0.100000... 0.5000.. 0.9999999999999999
+                let randomNum2 = Math.random() // 0.0000000000000000... 0.100000... 0.5000.. 0.9999999999999999 1
                 randomNum2 = randomNum2*100*(-1)
                 xVel = randomNum2
                 console.log("Hit right wall")
@@ -55,14 +55,26 @@
 
             }
 
+            //Bottom Wall Detection
             if(yPos+80 > 500){
-                yVel = -120
+                //How could you set the fill style right here to a random color?
+                // hint: Use the random function!
+                // hint x2: And rgb value can be any number between 0 and 255
+                // hint x3: Build a string using + (continue following the same type of pattern to build the rest of the string
+                ctx.fillStyle = 'rgb('+255+','+165+', 0)'
+
+                yVel = random(-700,-50)
+                console.log("Hit bottom wall!")
+                console.log(yVel)
+
             }
 
+            //Left Wall Detection
             if(xPos < 0){
                 xVel = 120
             }
 
+            //Top Wall Detection
             if(yPos < 0){
                 yVel = 120
             }
@@ -74,6 +86,11 @@
             window.requestAnimationFrame(gameLoop)
         }
 
+
+
+        function random(min, max) {
+            return Math.floor(Math.random() * (max - min) ) + min;
+        }
 
 
     </script>
