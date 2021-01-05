@@ -10,28 +10,13 @@
         const ctx = myDrawingPad.getContext("2d") //ctx is just referring to the fact that we want to draw in 2d on our canvas
         //Do not edit stuff above
 
-
         let xPos = 250
         let xVel = 120 // px/sec
         let yPos = 100
         let yVel = 120 // px/sec
 
 
-        /*
-                Random Numbers
-                    Video from class: https://www.youtube.com/watch?v=1cUUfMeOijg
-                    Question of the day: How can we make the velocity a random number instead of always the same number?
-                    Answer: Use Math.random()
-             */
 
-        //Example #1: Generating a Random Num
-        console.log(Math.random())
-
-        //Example #2: Making the random number more useful
-        let randomNum1 = Math.random() //Math.random() returns a value between 0 and 1
-        console.log(randomNum1)
-        randomNum1 = randomNum1*100 //We can make the random number more useful by multiplying by 100. This moves the decimal two places to the right.
-        console.log(randomNum1)
 
 
         let prevTimeStamp = 0
@@ -44,54 +29,50 @@
             xPos = xPos + xVel*timeElapsed
             yPos = yPos + yVel*timeElapsed
 
-            //Right Wall Detection
+
+
+            //Right Wall detection
             if(xPos+50 > 500){
-                xPos = 500-50
                 xVel = -120
-                ctx.fillStyle = getRandomColor()
+                xPos = 500 - 50
+
+                console.log("Hit Wall:")
+                console.log(xVel)
             }
 
-            //Bottom Wall Detection
+            //Bottom Wall detection
             if(yPos+80 > 500){
+
                 yVel = random(-700,-50)
-                ctx.fillStyle = getRandomColor()
+
+                console.log("Hit Bottom Wall")
+                console.log(yVel)
 
             }
 
-            //Left Wall Detection
+            //Right Wall detection
             if(xPos < 0){
                 xVel = 120
-                ctx.fillStyle = getRandomColor()
             }
 
-            //Top Wall Detection
+            //Top Wall detection
             if(yPos < 0){
                 yVel = 120
-                ctx.fillStyle = getRandomColor()
+                ctx.fillStyle = 'rgb('+random(0,255)+', '+random(0,255)+', '+random(0,255)+')'
             }
+
 
             ctx.fillRect(xPos,yPos,50,80)
 
             window.requestAnimationFrame(gameLoop)
         }
 
-
-
         function random(min, max) {
             return Math.floor(Math.random() * (max - min) ) + min;
         }
 
-        function getRandomColor(){
-            return 'rgb('+random(0,255)+', '+random(0,255)+', '+random(0,255)+')'
-        }
 
-        /*
-                let randomNum2 = Math.random() // 0.0000000000000000... 0.100000... 0.5000.. 0.9999999999999999 1
-                randomNum2 = randomNum2*100*(-1)
-                xVel = randomNum2
-                console.log("Hit right wall")
-                console.log(randomNum2)
-         */
+
 
 
     </script>

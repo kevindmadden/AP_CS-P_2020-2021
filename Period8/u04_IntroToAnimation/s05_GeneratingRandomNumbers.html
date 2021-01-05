@@ -10,19 +10,6 @@
         const ctx = myDrawingPad.getContext("2d") //ctx is just referring to the fact that we want to draw in 2d on our canvas
         //Do not edit stuff above
 
-
-
-
-
-
-        //TODO: How can we avoid setting the xVel to a velocity that is way too small???
-
-
-
-
-
-
-
         let xPos = 250
         let xVel = 120 // px/sec
         let yPos = 100
@@ -95,7 +82,12 @@
 
             //Bottom Wall detection
             if(yPos+80 > 500){
-                yVel = -120
+
+                yVel = random(-700,-50)
+
+                console.log("Hit Bottom Wall")
+                console.log(yVel)
+
             }
 
             //Right Wall detection
@@ -113,6 +105,12 @@
 
             window.requestAnimationFrame(gameLoop)
         }
+
+        function random(min, max) {
+            return Math.floor(Math.random() * (max - min) ) + min;
+        }
+
+
 
 
 

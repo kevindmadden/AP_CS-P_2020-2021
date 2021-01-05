@@ -55,9 +55,11 @@
 
             if(yPos < 0){
                 yVel = 120
+                ctx.fillStyle = getRandomRGB()
             }
             if(xPos < 0){
                 xVel = 120
+                ctx.fillStyle = getRandomRGB()
             }
             if(yPos+80 > 500){
                 //So if the rectangle dips below 500, then set it so that it is exactly on the edge
@@ -78,14 +80,15 @@
 
                 console.log("Bottom Wall Hit! - Velocity changed to: " + randomNum1)
                 //yVel = -120
+                ctx.fillStyle = getRandomRGB()
             }
             if(xPos+50 > 500){
                 //Example using random integer function (see towards bottom for function)
-
                 //xVel=-120
-                xVel=getRndInteger(-500,-50) //Simplified way of getting random numbers
+                xVel=random(-500,-50) //Simplified way of getting random numbers
                 console.log("Right Wall Hit! - Velocity changed to: "+xVel)
 
+                ctx.fillStyle = getRandomRGB()
             }
 
             //Drawing
@@ -98,6 +101,10 @@
 
         function random(min, max) {
             return Math.floor(Math.random() * (max - min) ) + min;
+        }
+
+        function getRandomRGB(){
+            return 'rgb('+random(0,255)+", "+random(0,255)+", "+random(0,255)+")"
         }
 
 

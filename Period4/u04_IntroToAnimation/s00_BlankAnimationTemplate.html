@@ -10,20 +10,15 @@
         const ctx = myDrawingPad.getContext("2d") //ctx is just referring to the fact that we want to draw in 2d on our canvas
         //Do not edit stuff above
 
-        let xVel = 20 //px/sec
-        let xPos = 0
+
 
         let prevTimeStamp = 0
-
         window.requestAnimationFrame(gameLoop)
         function gameLoop(currentTimeStamp){
             let timeElapsed = (currentTimeStamp - prevTimeStamp)/1000
             prevTimeStamp = currentTimeStamp
-
-            xPos = xPos + xVel*timeElapsed
-
             ctx.clearRect(0,0,500,500)
-            ctx.fillRect(xPos, 200, 50, 60)
+
 
 
             window.requestAnimationFrame(gameLoop)
