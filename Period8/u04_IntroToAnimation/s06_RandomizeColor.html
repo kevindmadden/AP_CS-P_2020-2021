@@ -16,6 +16,10 @@
         let yVel = 120 // px/sec
 
 
+        // int: 1,2,6,7, etc.
+        // dec: 1.2, 3.49, 8.8786, etc.
+        // string: "hello world", "hello mom", etc.
+        // boolean: true, false
 
 
 
@@ -30,35 +34,29 @@
             yPos = yPos + yVel*timeElapsed
 
 
-
             //Right Wall detection
             if(xPos+50 > 500){
                 xVel = -120
                 xPos = 500 - 50
-
-                console.log("Hit Wall:")
-                console.log(xVel)
+                randomizingFillStyle(false)
             }
 
             //Bottom Wall detection
             if(yPos+80 > 500){
-
                 yVel = random(-700,-50)
-
-                console.log("Hit Bottom Wall")
-                console.log(yVel)
-
+                randomizingFillStyle(true)
             }
 
             //Right Wall detection
             if(xPos < 0){
                 xVel = 120
+                randomizingFillStyle(false)
             }
 
             //Top Wall detection
             if(yPos < 0){
                 yVel = 120
-                ctx.fillStyle = 'rgb('+random(0,255)+', '+random(0,255)+', '+random(0,255)+')'
+                randomizingFillStyle(true)
             }
 
 
@@ -67,8 +65,22 @@
             window.requestAnimationFrame(gameLoop)
         }
 
+
+        function randomizingFillStyle(wantsBlue){
+            if(wantsBlue === true){
+                ctx.fillStyle = 'rgb('+random(60,100)+', '+random(220,260)+', '+random(210,250)+')' //basically lots of shades of blu
+            }
+            if(wantsBlue === false){
+                ctx.fillStyle = 'rgb('+random(0,255)+', '+random(0,255)+', '+random(0,255)+')'
+            }
+
+
+        }
+
+
         function random(min, max) {
             return Math.floor(Math.random() * (max - min) ) + min;
+
         }
 
 
