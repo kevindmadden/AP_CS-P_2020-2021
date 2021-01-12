@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <canvas id="drawingPad" width="500" height="500" style="border: 1px solid black"></canvas>
+    <script>
+        //Canvas API: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
+        const myDrawingPad = document.getElementById("drawingPad")
+        const ctx = myDrawingPad.getContext("2d") //ctx is just referring to the fact that we want to draw in 2d on our canvas
+        //Do not edit stuff above
+
+        let xPos = 250
+        let xVel = 120 // px/sec
+        let yPos = 100
+        let yVel = 120 // px/sec
+
+
+        // Variable Types:
+        // int: 1,2,6,7, etc.
+        // dec: 1.2, 3.49, 8.8786, etc.
+        // string: "hello world", "hello mom", etc.
+
+        // Deep-Dive into Boolean variables
+        // boolean: true, false
+        // boolean variables typically start with "is" or "did"
+        // for example:
+        // let isMoving = true
+        // let didSwim = false
+
+        //Variable Scope
+        //-Variables only exist in between the { } that you create them in.
+        //-For example, myVar1 only exists inside of myFunction. It does not exist outside of the function.
+        function myFunction(){
+            let myVar1 = 10
+        }
+        //-This is highly relevant to the game loop because the game loop has { }
+        //-For example, the timeElapsed variable exists inside the gameLoop. So that means 60 times per second, the timeElapsed is getting created and then destroyed.
+        //-Most of the variables we have created are created outside of the gameLoop (isColorChanging, prevTimeStamp, xPos, xVel, yPos, yVel)
+
+
+        //Long-term Goal: As soon as the rectangle hits the top wall, stop the random color changing stuff
+        let isColorChanging = true
+
+
+        let prevTimeStamp = 0
+        window.requestAnimationFrame(gameLoop)
+        function gameLoop(currentTimeStamp){
+            let timeElapsed = (currentTimeStamp-prevTimeStamp)/1000
+            prevTimeStamp = currentTimeStamp
+            ctx.clearRect(0,0,500,500)
+
+            xPos = xPos + xVel*timeElapsed
+            yPos = yPos + yVel*timeElapsed
+
+
+            //Right Wall detection
+            if(xPos+50 > 500){
+                xVel = -120
+                xPos = 500 - 50
+                if(isColorChanging){ //equivalent to: if(isColorChanging===true){
+                    randomizingFillStyle(false)
+                }
+            }
+
+            //Bottom Wall detection
+            if(yPos+80 > 500){
+                yVel = random(-700,-50)
+                if(isColorChanging){
+                    randomizingFillStyle(true)
+                }
+            }
+
+            //Right Wall detection
+            if(xPos < 0){
+                xVel = 120
+                if(isColorChanging){
+                    randomizingFillStyle(false)
+                }
+            }
+
+            //Top Wall detection
+            if(yPos < 0){
+                yVel = 120
+                isColorChanging = false //We flip the boolean value to false, which stops the randomizingFillStyle functions from being called
+                if(isColorChanging){
+                    randomizingFillStyle(true)
+                }
+            }
+
+
+            ctx.fillRect(xPos,yPos,50,80)
+
+            window.requestAnimationFrame(gameLoop)
+        }
+
+
+        function randomizingFillStyle(wantsBlue){
+            if(wantsBlue === true){
+                ctx.fillStyle = 'rgb('+random(60,100)+', '+random(220,260)+', '+random(210,250)+')' //basically lots of shades of blue
+            }
+            if(wantsBlue === false){
+                ctx.fillStyle = 'rgb('+random(0,255)+', '+random(0,255)+', '+random(0,255)+')'
+            }
+
+
+        }
+
+
+        function random(min, max) {
+            return Math.floor(Math.random() * (max - min) ) + min;
+        }
+
+
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

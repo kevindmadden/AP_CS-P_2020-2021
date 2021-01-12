@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <canvas id="drawingPad" width="500" height="500" style="border: 1px solid black"></canvas>
+    <script>
+        //Canvas API: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
+        const myDrawingPad = document.getElementById("drawingPad")
+        const ctx = myDrawingPad.getContext("2d") //ctx is just referring to the fact that we want to draw in 2d on our canvas
+        //Do not edit stuff above
+
+
+        let xPos = 250
+        let xVel = 120 // px/sec
+        let yPos = 100
+        let yVel = 120 // px/sec
+
+        /*
+            Variables
+            -Can be used in calculations
+            -Primary purpose: to store values
+            -Types of Variables
+                -Numbers (integers or decimals)
+                    -Examples
+                    let num1 = 20
+                    let num2 = 3.14
+                -String (text/words)
+                    let word1 = "hello!"
+                    let word2 = "Welcome to 2021!"
+         */
+
+        /*
+            New! Boolean Variables
+                -There are only two boolean values
+                    -true
+                    -false
+                -Examples:
+                    let isMoving = true
+                    let isRandom = false
+         */
+
+        /*
+            Variable Scope
+                -Variables only exist between the braces { } that you created them in.
+                -For example, each time the gameLoop finishes one cycle, all the variables you created inside the gameLoop braces { } get "destroyed."
+                -So the reason why we have created so many variables outside the gameLoop's braces { } is because we want these variables to be "saved" each iteration (examples of variables outside gameLoop: prevTimeStamp, isColorRandom, xPos, xVel, yPos, yVel)
+
+
+         */
+
+        //Goal: As soon as rectangle hits top wall, stop randomizing the color
+        let isColorRandom = true
+
+
+        let prevTimeStamp = 0
+        window.requestAnimationFrame(gameLoop)
+        function gameLoop(currentTimeStamp){
+            let timeElapsed = (currentTimeStamp-prevTimeStamp)/1000
+            prevTimeStamp = currentTimeStamp
+            ctx.clearRect(0,0,500,500)
+
+            xPos = xPos + xVel*timeElapsed
+            yPos = yPos + yVel*timeElapsed
+
+            //Right Wall Detection
+            if(xPos+50 > 500){
+                xPos = 500-50
+                xVel = -120
+                if(isColorRandom){ //equivalent: if(isColorRandom===true){
+                    ctx.fillStyle = getRandomColor()
+                }
+            }
+
+            //Bottom Wall Detection
+            if(yPos+80 > 500){
+                yVel = random(-700,-50)
+                if(isColorRandom){
+                    ctx.fillStyle = getRandomColor()
+                }
+            }
+
+            //Left Wall Detection
+            if(xPos < 0){
+                xVel = 120
+                if(isColorRandom){
+                    ctx.fillStyle = getRandomColor()
+                }
+            }
+
+            //Top Wall Detection
+            if(yPos < 0){
+                yVel = 120
+                if(isColorRandom){
+                    ctx.fillStyle = getRandomColor()
+                }
+                isColorRandom = false
+            }
+
+            ctx.fillRect(xPos,yPos,50,80)
+
+            window.requestAnimationFrame(gameLoop)
+        }
+
+
+
+        function random(min, max) {
+            return Math.floor(Math.random() * (max - min) ) + min;
+        }
+
+        function getRandomColor(){
+            return 'rgb('+random(0,255)+', '+random(0,255)+', '+random(0,255)+')'
+        }
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -36,6 +36,14 @@
                     isMoving = true
              */
 
+            /*
+                Variable Scope
+                    -A variable only exists between the braces { } it is declared between
+                    -What this means is that any variable you create in the gameLoop gets "destroyed" at the end of each gameLoop and before the next gameLoop is run
+                    -So any value that you want to "save" off in the gameLoop and access the next run of the gameLoop needs to be delcared outside of the gameLoop
+                        -This is why we have created the variables that we have outside of the gameLoop (this includes: isRandom prevTimeStamp, xPos, xVel, yPos, yVel)
+             */
+
         let isRandom = true
 
 
