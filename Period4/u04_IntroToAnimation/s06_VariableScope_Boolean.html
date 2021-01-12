@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <canvas id="drawingPad" width="500" height="500" style="border: 1px solid black"></canvas>
+    <script>
+            //Canvas API: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
+        const myDrawingPad = document.getElementById("drawingPad")
+        const ctx = myDrawingPad.getContext("2d") //ctx is just referring to the fact that we want to draw in 2d on our canvas
+        //Do not edit stuff above
+
+        let xPos = 20
+        let xVel = 120 // px/sec
+        let yPos = 100
+        let yVel = 120
+
+
+            /*
+                Variables
+                -Store changeable values (let)
+                -Types:
+                    -Numbers (integers, decimals)
+                        let num = 24
+                    -Strings (words- think "quotes")
+                        let word = "hello"
+
+                Topic for the Day
+                -New variable type: boolean
+                -Boolean variables can be either one of two things:
+                    -true
+                    -false
+                -Examples:
+                    let isMoving = false
+                    let isRandom = true
+                    isMoving = true
+             */
+
+        let isRandom = true
+
+
+
+
+        let prevTimeStamp = 0
+        window.requestAnimationFrame(gameLoop)
+        function gameLoop(currentTimeStamp){
+            let timeElapsed = (currentTimeStamp-prevTimeStamp)/1000
+            prevTimeStamp = currentTimeStamp
+            ctx.clearRect(0,0,500,500)
+
+            //Calculations
+            xPos = xPos + xVel*timeElapsed
+            yPos = yPos + yVel*timeElapsed
+
+
+            //top wall
+            if(yPos < 0){
+                yVel = 120
+                if(isRandom){ //equivalent to: if(isRandom===true){
+                    ctx.fillStyle = getRandomRGB()
+                }
+                if(isRandom){
+                    isRandom = false //with the setup as-is, the color will no longer randomize once the rectangle hits the top wall
+                }
+            }
+
+            //left wall
+            if(xPos < 0){
+                xVel = 120
+                if(isRandom){
+                    ctx.fillStyle = getRandomRGB()
+                }
+
+            }
+
+            //bottom wall
+            if(yPos+80 > 500){
+                yPos = 500-80
+                yVel = -120
+                if(isRandom){
+                    ctx.fillStyle = getRandomRGB()
+                }
+            }
+
+            //right wall
+            if(xPos+50 > 500){
+                xVel=random(-500,-50) //Simplified way of getting random numbers
+                if(isRandom){
+                    ctx.fillStyle = getRandomRGB()
+                }
+            }
+
+            //Drawing
+            ctx.fillRect(xPos,yPos,50,80)
+
+            window.requestAnimationFrame(gameLoop)
+        }
+
+
+
+        function random(min, max) {
+            return Math.floor(Math.random() * (max - min) ) + min;
+        }
+
+        function getRandomRGB(){
+            return 'rgb('+random(0,255)+", "+random(0,255)+", "+random(0,255)+")"
+        }
+
+
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
