@@ -24,32 +24,10 @@
             yVel: 60,
         }
 
-        //Example of "groupings" within a "grouping"
-        let rect3 = {
-            x: {
-                pos: 30,
-                vel: 20,
-                acc: 10,
-                fric: 2,
-            },
-            y: {
-                pos: 50,
-                vel: 40,
-                acc: 15,
-                fric: 6,
-            }
-        }
-        //Example of referencing a particular value in this layered grouping
-        console.log(rect3.y.acc) //this would log "15" to the console
-
-
 
 
 
         let isRandom = true
-
-
-
 
         let prevTimeStamp = 0
         window.requestAnimationFrame(gameLoop)
@@ -116,6 +94,53 @@
             return 'rgb('+random(0,255)+", "+random(0,255)+", "+random(0,255)+")"
         }
 
+
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        // Keyboard Input
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+        myDrawingPad.addEventListener('keydown', keyHandler)
+        myDrawingPad.addEventListener('keyup', keyHandler)
+
+        let kbInput = {
+            left : {
+                value : "ArrowLeft",
+                isPressed: false,
+            },
+            right : {
+                value : "ArrowRight",
+                isPressed: false,
+            },
+            down : {
+                value : "ArrowDown",
+                isPressed: false,
+            },
+            up : {
+                value : "ArrowUp",
+                isPressed: false,
+            },
+        }
+
+        function keyHandler(event) {
+            event.preventDefault() //prevents the keys that you press from performing their default action in your internet browser (for ex: when you press the down arrow key, the browser window will not scroll down)
+            let type = event.type
+            let isPressed = false
+            if(type==="keydown"){
+                isPressed = true
+            }
+            if(event.key===kbInput.left.value){
+                kbInput.left.isPressed = isPressed
+            }
+            if(event.key===kbInput.right.value){
+                kbInput.right.isPressed = isPressed
+            }
+            if(event.key===kbInput.up.value){
+                kbInput.up.isPressed = isPressed
+            }
+            if(event.key===kbInput.down.value){
+                kbInput.down.isPressed = isPressed
+            }
+        }
 
 
 

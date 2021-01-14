@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <canvas id="canvas" width="500px" height="500px" style="border: 1px solid black;" tabindex="1" autofocus></canvas>
+    <script>
+        //Canvas API: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
+        const canvas = document.getElementById("canvas")
+        const ctx = canvas.getContext("2d") //ctx is just referring to the fact that we want to draw in 2d on our canvas
+        //Do not edit stuff above
+
+
+        let rect1 = {
+            xPos: 250,
+            yPos: 100,
+            xVel: 120,
+            yVel: 120,
+        }
+
+        let rect2 = {
+            xPos: 100,
+            yPos: 200,
+            xVel: 0,
+            yVel: 0,
+        }
+        
+
+
+        let isColorRandom = true
+
+        let prevTimeStamp = 0
+        window.requestAnimationFrame(gameLoop)
+        function gameLoop(currentTimeStamp){
+            let timeElapsed = (currentTimeStamp-prevTimeStamp)/1000
+            prevTimeStamp = currentTimeStamp
+            ctx.clearRect(0,0,500,500)
+
+            rect1.xPos = rect1.xPos + rect1.xVel*timeElapsed
+            rect1.yPos = rect1.yPos + rect1.yVel*timeElapsed
+
+            rect2.xPos = rect2.xPos + rect2.xVel*timeElapsed
+            rect2.yPos = rect2.yPos + rect2.yVel*timeElapsed
+
+
+            //Right Wall Detection
+            if(rect1.xPos+50 > 500){
+                rect1.xPos = 500-50
+                rect1.xVel = -120
+                if(isColorRandom){ //equivalent: if(isColorRandom===true){
+                    ctx.fillStyle = getRandomColor()
+                }
+            }
+
+            //Bottom Wall Detection
+            if(rect1.yPos+80 > 500){
+                rect1.yVel = random(-700,-50)
+                if(isColorRandom){
+                    ctx.fillStyle = getRandomColor()
+                }
+            }
+
+            //Left Wall Detection
+            if(rect1.xPos < 0){
+                rect1.xVel = 120
+                if(isColorRandom){
+                    ctx.fillStyle = getRandomColor()
+                }
+            }
+
+            //Top Wall Detection
+            if(rect1.yPos < 0){
+                rect1.yVel = 120
+                if(isColorRandom){
+                    ctx.fillStyle = getRandomColor()
+                }
+                isColorRandom = false
+            }
+
+
+            ctx.fillRect(rect1.xPos,rect1.yPos,50,80)
+            ctx.fillRect(rect2.xPos,rect2.yPos,50,80)
+
+
+            window.requestAnimationFrame(gameLoop)
+        }
+
+
+
+        function random(min, max) {
+            return Math.floor(Math.random() * (max - min) ) + min;
+        }
+
+        function getRandomColor(){
+            return 'rgb('+random(0,255)+', '+random(0,255)+', '+random(0,255)+')'
+        }
+
+
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        // Keyboard Input
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+        canvas.addEventListener('keydown', keyHandler)
+        canvas.addEventListener('keyup', keyHandler)
+
+        let kbInput = {
+            left : {
+                value : "ArrowLeft",
+                isPressed: false,
+            },
+            right : {
+                value : "ArrowRight",
+                isPressed: false,
+            },
+            down : {
+                value : "ArrowDown",
+                isPressed: false,
+            },
+            up : {
+                value : "ArrowUp",
+                isPressed: false,
+            },
+        }
+
+        function keyHandler(event) {
+            event.preventDefault() //prevents the keys that you press from performing their default action in your internet browser (for ex: when you press the down arrow key, the browser window will not scroll down)
+            let type = event.type
+            let isPressed = false
+            if(type==="keydown"){
+                isPressed = true
+            }
+            if(event.key===kbInput.left.value){
+                kbInput.left.isPressed = isPressed
+            }
+            if(event.key===kbInput.right.value){
+                kbInput.right.isPressed = isPressed
+            }
+            if(event.key===kbInput.up.value){
+                kbInput.up.isPressed = isPressed
+            }
+            if(event.key===kbInput.down.value){
+                kbInput.down.isPressed = isPressed
+            }
+        }
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
