@@ -43,13 +43,13 @@
             rect2.yPos = rect2.yPos + rect2.yVel*timeElapsed
 
 
+
             if(kbInput.down.isPressed){
                 rect2.yVel = 100
             }
             if(kbInput.up.isPressed){
                 rect2.yVel = -100
             }
-
             if(!kbInput.up.isPressed && !kbInput.down.isPressed){
                 rect2.yVel = 0
             }
@@ -59,12 +59,8 @@
 
 
 
-            /*
-            above is equivalent to:
-            if(kbInput.up.isPressed===false && kbInput.down.isPressed===false){
-                rect2.yVel = 0
-            }
-             */
+
+
 
 
 
