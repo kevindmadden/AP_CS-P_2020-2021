@@ -42,12 +42,30 @@
             rect2.xPos = rect2.xPos + rect2.xVel*timeElapsed
             rect2.yPos = rect2.yPos + rect2.yVel*timeElapsed
 
+
             if(kbInput.down.isPressed){
                 rect2.yVel = 100
             }
-            if(kbInput.down.isPressed===false){
+            if(kbInput.up.isPressed){
+                rect2.yVel = -100
+            }
+
+            if(!kbInput.up.isPressed && !kbInput.down.isPressed){
                 rect2.yVel = 0
             }
+            if(kbInput.up.isPressed && kbInput.down.isPressed){
+                rect2.yVel = 0
+            }
+
+
+
+            /*
+            above is equivalent to:
+            if(kbInput.up.isPressed===false && kbInput.down.isPressed===false){
+                rect2.yVel = 0
+            }
+             */
+
 
 
             //Right Wall Detection
@@ -66,6 +84,7 @@
                     ctx.fillStyle = getRandomColor()
                 }
             }
+
 
             //Left Wall Detection
             if(rect1.xPos < 0){
