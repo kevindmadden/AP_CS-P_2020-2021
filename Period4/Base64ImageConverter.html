@@ -18,8 +18,10 @@
                 newImage.src = srcData;
 
                 document.getElementById("imgTest").innerHTML = newImage.outerHTML;
-                alert("Converted Base64 version is " + document.getElementById("imgTest").innerHTML);
-                console.log("Converted Base64 version is " + document.getElementById("imgTest").innerHTML);
+                //alert("Converted Base64 version is " + document.getElementById("imgTest").innerHTML);
+                //console.log("Converted Base64 version is " + document.getElementById("imgTest").innerHTML);
+                document.write("Converted Base64 version is " + newImage.outerHTML)
+
             }
             fileReader.readAsDataURL(fileToLoad);
         }
@@ -27,3 +29,4 @@
 </script>
 
 </html>
+
