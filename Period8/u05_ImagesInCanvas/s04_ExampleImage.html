@@ -11,25 +11,10 @@
         const ctx = canvas.getContext("2d") //ctx is just referring to the fact that we want to draw in 2d on our canvas
         //Do not edit stuff above
 
-
-        let rect1 = {
-            xPos: 250,
-            yPos: 100,
-            xVel: 120,
-            yVel: 120,
-        }
-
-        let rect2 = {
-            xPos: 100,
-            yPos: 200,
-            xVel: 0,
-            yVel: 0,
-        }
-
         let sputnik = {
             xPos: 0,
             yPos: 0,
-            scale: 0.2,
+            scale: 0.5,
             xVel: 150,
             yVel: 140,
         }
@@ -46,29 +31,8 @@
             prevTimeStamp = currentTimeStamp
             ctx.clearRect(0,0,500,500)
 
-            rect1.xPos = rect1.xPos + rect1.xVel*timeElapsed
-            rect1.yPos = rect1.yPos + rect1.yVel*timeElapsed
-
-            rect2.xPos = rect2.xPos + rect2.xVel*timeElapsed
-            rect2.yPos = rect2.yPos + rect2.yVel*timeElapsed
-
             sputnik.xPos = sputnik.xPos + sputnik.xVel*timeElapsed
             //sputnik.yPos = sputnik.yPos + sputnik.yVel*timeElapsed
-
-
-
-            if(kbInput.down.isPressed){
-                rect2.yVel = 100
-            }
-            if(kbInput.up.isPressed){
-                rect2.yVel = -100
-            }
-            if(!kbInput.up.isPressed && !kbInput.down.isPressed){
-                rect2.yVel = 0
-            }
-            if(kbInput.up.isPressed && kbInput.down.isPressed){
-                rect2.yVel = 0
-            }
 
             //Right wall sputnik detector
             if(sputnik.xPos+sputnik.image.width*sputnik.scale > 500){
@@ -79,51 +43,8 @@
                 sputnik.xVel = 150
             }
 
-            //Right Wall Detection
-            if(rect1.xPos+50 > 500){
-                rect1.xPos = 500-50
-                rect1.xVel = -120
-                if(isColorRandom){ //equivalent: if(isColorRandom===true){
-                    ctx.fillStyle = getRandomColor()
-                }
-            }
-
-            //Bottom Wall Detection
-            if(rect1.yPos+80 > 500){
-                rect1.yVel = random(-700,-50)
-                if(isColorRandom){
-                    ctx.fillStyle = getRandomColor()
-                }
-            }
-
-
-            //Left Wall Detection
-            if(rect1.xPos < 0){
-                rect1.xVel = 120
-                if(isColorRandom){
-                    ctx.fillStyle = getRandomColor()
-                }
-            }
-
-            //Top Wall Detection
-            if(rect1.yPos < 0){
-                rect1.yVel = 120
-                if(isColorRandom){
-                    ctx.fillStyle = getRandomColor()
-                }
-                isColorRandom = false
-            }
-
 
             ctx.drawImage(sputnik.image, sputnik.xPos, sputnik.yPos, sputnik.image.width*sputnik.scale, sputnik.image.height*sputnik.scale)
-
-            ctx.fillRect(rect1.xPos,rect1.yPos,50,80)
-            ctx.fillRect(rect2.xPos,rect2.yPos,50,80)
-
-
-
-
-
             window.requestAnimationFrame(gameLoop)
         }
 
