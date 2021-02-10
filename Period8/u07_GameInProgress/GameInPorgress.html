@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <canvas id="canvas" width="500px" height="500px" style="border: 1px solid black;" tabindex="1" autofocus></canvas>
+    <script>
+        //Canvas API: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
+        const canvas = document.getElementById("canvas")
+        const ctx = canvas.getContext("2d") //ctx is just referring to the fact that we want to draw in 2d on our canvas
+        //Do not edit stuff above
+
+        /*Ideas so far:
+            -Some sort of dodging game (maybe collecting something too eventually??)
+                -What happens when you run into something you're trying to dodge?
+                    -Let's get a game over screen to appear (in the future, we could in that you have so many lives)
+            -Keeping track of game stats (timer, score)
+            -Multiple circles to dodge (so maybe start with 1 circle to dodge, then 2, then 3, etc.)
+            -Character's Name: Jeff
+         */
+
+
+
+
+        let circ1 = {
+            xPos: 250,
+            yPos: 100,
+            xVel: 120,
+            yVel: 120,
+            radius: 40,
+        }
+
+        let jeff = {
+            xPos: 100,
+            yPos: 200,
+            xVel: 0,
+            yVel: 0,
+            radius: 20,
+        }
+
+
+
+
+        let isGameOver = false
+
+        let isColorRandom = true
+
+        let prevTimeStamp = 0
+        window.requestAnimationFrame(gameLoop)
+        function gameLoop(currentTimeStamp){
+            let timeElapsed = (currentTimeStamp-prevTimeStamp)/1000
+            prevTimeStamp = currentTimeStamp
+            ctx.clearRect(0,0,500,500)
+
+            circ1.xPos = circ1.xPos + circ1.xVel*timeElapsed
+            circ1.yPos = circ1.yPos + circ1.yVel*timeElapsed
+
+            jeff.xPos = jeff.xPos + jeff.xVel*timeElapsed
+            jeff.yPos = jeff.yPos + jeff.yVel*timeElapsed
+
+
+
+            if(kbInput.down.isPressed){
+                jeff.yVel = 100
+            }
+            if(kbInput.up.isPressed){
+                jeff.yVel = -100
+            }
+            if(!kbInput.up.isPressed && !kbInput.down.isPressed){
+                jeff.yVel = 0
+            }
+            if(kbInput.up.isPressed && kbInput.down.isPressed){
+                jeff.yVel = 0
+            }
+
+
+            //Right Wall Detection
+            if(circ1.xPos+circ1.radius > 500){
+                circ1.xVel = -120
+                if(isColorRandom){ //equivalent: if(isColorRandom===true){
+                    ctx.fillStyle = getRandomColor()
+                }
+            }
+
+            //Bottom Wall Detection
+            if(circ1.yPos+circ1.radius > 500){
+                circ1.yVel = random(-700,-50)
+                if(isColorRandom){
+                    ctx.fillStyle = getRandomColor()
+                }
+            }
+
+
+            //Left Wall Detection
+            if(circ1.xPos-circ1.radius < 0){
+                circ1.xVel = 120
+                if(isColorRandom){
+                    ctx.fillStyle = getRandomColor()
+                }
+            }
+
+            //Top Wall Detection
+            if(circ1.yPos - circ1.radius < 0){
+                circ1.yVel = 120
+                if(isColorRandom){
+                    ctx.fillStyle = getRandomColor()
+                }
+                isColorRandom = false
+            }
+
+            ctx.beginPath()
+            ctx.arc(circ1.xPos,circ1.yPos,circ1.radius,0, 2 * Math.PI)
+            ctx.fillStyle = "green"
+            ctx.fill()
+
+            ctx.beginPath()
+            ctx.arc(jeff.xPos,jeff.yPos,jeff.radius,0, 2 * Math.PI)
+            ctx.fillStyle = "yellow"
+            ctx.fill()
+
+            if(didCircleCircleColl(circ1.xPos,circ1.yPos,circ1.radius,jeff.xPos,jeff.yPos,jeff.radius)){
+                //How do we draw a giant black filled-in rectangle over the whole screen?
+                isGameOver = true
+            }
+
+            if(isGameOver){
+                ctx.fillStyle = "black"
+                ctx.fillRect(0,0,500,500)
+                ctx.fillStyle = "yellow"
+                ctx.font = '50px serif'
+                ctx.fillText("GAME OVER...", 100, 100)
+            }
+
+
+
+
+
+            window.requestAnimationFrame(gameLoop)
+        }
+
+
+        function didCircleCircleColl(cir1_x, cir1_y, cir1_r, cir2_x, cir2_y, cir2_r){
+            let distanceBetweenCenters = Math.sqrt( Math.pow(cir2_x-cir1_x,2) + Math.pow(cir2_y-cir1_y, 2))
+            let sumOfRadii = cir1_r + cir2_r
+
+            if(distanceBetweenCenters > sumOfRadii){
+                //they aren't touching
+                return false
+            }else{
+                //they are touching
+                return true
+
+            }
+
+        }
+
+        function random(min, max) {
+            return Math.floor(Math.random() * (max - min) ) + min;
+        }
+
+        function getRandomColor(){
+            return 'rgb('+random(0,255)+', '+random(0,255)+', '+random(0,255)+')'
+        }
+
+
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        // Keyboard Input
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+        canvas.addEventListener('keydown', keyHandler)
+        canvas.addEventListener('keyup', keyHandler)
+
+        let kbInput = {
+            left : {
+                value : "ArrowLeft",
+                isPressed: false,
+            },
+            right : {
+                value : "ArrowRight",
+                isPressed: false,
+            },
+            down : {
+                value : "ArrowDown",
+                isPressed: false,
+            },
+            up : {
+                value : "ArrowUp",
+                isPressed: false,
+            },
+        }
+
+        function keyHandler(event) {
+            event.preventDefault() //prevents the keys that you press from performing their default action in your internet browser (for ex: when you press the down arrow key, the browser window will not scroll down)
+            let type = event.type
+            let isPressed = false
+            if(type==="keydown"){
+                isPressed = true
+            }
+            if(event.key===kbInput.left.value){
+                kbInput.left.isPressed = isPressed
+            }
+            if(event.key===kbInput.right.value){
+                kbInput.right.isPressed = isPressed
+            }
+            if(event.key===kbInput.up.value){
+                kbInput.up.isPressed = isPressed
+            }
+            if(event.key===kbInput.down.value){
+                kbInput.down.isPressed = isPressed
+            }
+        }
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
