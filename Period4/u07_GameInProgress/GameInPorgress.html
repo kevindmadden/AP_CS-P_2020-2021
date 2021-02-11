@@ -11,11 +11,29 @@
         //Do not edit stuff above
 
         /*Ideas so far:
-            -Some sort of dodging game (maybe collecting something too eventually??)
+            -Some sort of dodging game
                 -What happens when you run into something you're trying to dodge?
                     -Let's get a game over screen to appear (in the future, we could in that you have so many lives)
             -Keeping track of game stats (timer, score)
             -Multiple circles to dodge (so maybe start with 1 circle to dodge, then 2, then 3, etc.)
+            -The ball could gradually change sizes
+            -Barrier: Making it so that you have to keep the circle on the screen (stop the circle from going through walls) [possibly make barrier instantly KO player]
+            -Slow down the ball we are moving gradually as time passes (to make the game harder)
+            -More design/theme (rocketship and asteroid)
+            -level system
+            -add a start screen
+                -Major challenge: How do we have two separate screens
+                -Buttons of some sort (the way the user presses a button has to be with some form of user input)
+                    -Buttons that are part of the canvas
+                    -Another potential option would be HTML buttons
+                    -How to press buttons?
+                        -Straightforward if using HTML buttons
+                        -Options if the buttons are part of the canvas
+                            -Explore user input using the mouse
+                            -******User input through the keyboard
+                                -Press the number for the level you want to play
+            -Canvas could get smaller each level
+            -Powerup items perhaps?
             -Character's Name: Jeff
          */
 
@@ -52,75 +70,89 @@
             prevTimeStamp = currentTimeStamp
             ctx.clearRect(0,0,500,500)
 
-            circ1.xPos = circ1.xPos + circ1.xVel*timeElapsed
-            circ1.yPos = circ1.yPos + circ1.yVel*timeElapsed
+            //This if-statement controls whether the game code gets run or not
+            if(!isGameOver){
+                //Calculations - Game
+                circ1.xPos = circ1.xPos + circ1.xVel*timeElapsed
+                circ1.yPos = circ1.yPos + circ1.yVel*timeElapsed
 
-            jeff.xPos = jeff.xPos + jeff.xVel*timeElapsed
-            jeff.yPos = jeff.yPos + jeff.yVel*timeElapsed
-
-
-
-            if(kbInput.down.isPressed){
-                jeff.yVel = 100
-            }
-            if(kbInput.up.isPressed){
-                jeff.yVel = -100
-            }
-            if(!kbInput.up.isPressed && !kbInput.down.isPressed){
-                jeff.yVel = 0
-            }
-            if(kbInput.up.isPressed && kbInput.down.isPressed){
-                jeff.yVel = 0
-            }
+                jeff.xPos = jeff.xPos + jeff.xVel*timeElapsed
+                jeff.yPos = jeff.yPos + jeff.yVel*timeElapsed
 
 
-            //Right Wall Detection
-            if(circ1.xPos+circ1.radius > 500){
-                circ1.xVel = -120
-                if(isColorRandom){ //equivalent: if(isColorRandom===true){
-                    ctx.fillStyle = getRandomColor()
+                //User Input - Game
+                if(kbInput.down.isPressed){
+                    jeff.yVel = 100
                 }
-            }
-
-            //Bottom Wall Detection
-            if(circ1.yPos+circ1.radius > 500){
-                circ1.yVel = random(-700,-50)
-                if(isColorRandom){
-                    ctx.fillStyle = getRandomColor()
+                if(kbInput.up.isPressed){
+                    jeff.yVel = -100
                 }
-            }
-
-
-            //Left Wall Detection
-            if(circ1.xPos-circ1.radius < 0){
-                circ1.xVel = 120
-                if(isColorRandom){
-                    ctx.fillStyle = getRandomColor()
+                if(!kbInput.up.isPressed && !kbInput.down.isPressed){
+                    jeff.yVel = 0
                 }
-            }
-
-            //Top Wall Detection
-            if(circ1.yPos - circ1.radius < 0){
-                circ1.yVel = 120
-                if(isColorRandom){
-                    ctx.fillStyle = getRandomColor()
+                if(kbInput.up.isPressed && kbInput.down.isPressed){
+                    jeff.yVel = 0
                 }
-                isColorRandom = false
-            }
+                if(jeff.yPos - jeff.radius < 0){ //top barrier
+                    jeff.yVel = 0
+                    jeff.yPos = 0 + jeff.radius
+                }
+                if(jeff.yPos + jeff.radius > 500){ //lower barrier
+                    jeff.yVel = 0
+                    jeff.yPos = 500 - jeff.radius
+                }
+                console.log(jeff.yPos)
 
-            ctx.beginPath()
-            ctx.arc(circ1.xPos,circ1.yPos,circ1.radius,0, 2 * Math.PI)
-            ctx.fillStyle = "green"
-            ctx.fill()
 
-            ctx.beginPath()
-            ctx.arc(jeff.xPos,jeff.yPos,jeff.radius,0, 2 * Math.PI)
-            ctx.fillStyle = "yellow"
-            ctx.fill()
+                //Right Wall Detection
+                if(circ1.xPos+circ1.radius > 500){
+                    circ1.xVel = -120
+                    if(isColorRandom){ //equivalent: if(isColorRandom===true){
+                        ctx.fillStyle = getRandomColor()
+                    }
+                }
 
-            if(didCircleCircleColl(circ1.xPos,circ1.yPos,circ1.radius,jeff.xPos,jeff.yPos,jeff.radius)){
-                //How do we draw a giant black filled-in rectangle over the whole screen?
-                isGameOver = true
+                //Bottom Wall Detection
+                if(circ1.yPos+circ1.radius > 500){
+                    circ1.yVel = random(-700,-50)
+                    if(isColorRandom){
+                        ctx.fillStyle = getRandomColor()
+                    }
+                }
+
+                //Left Wall Detection
+                if(circ1.xPos-circ1.radius < 0){
+                    circ1.xVel = 120
+                    if(isColorRandom){
+                        ctx.fillStyle = getRandomColor()
+                    }
+                }
+
+                //Top Wall Detection
+                if(circ1.yPos - circ1.radius < 0){
+                    circ1.yVel = 120
+                    if(isColorRandom){
+                        ctx.fillStyle = getRandomColor()
+                    }
+                    isColorRandom = false
+                }
+
+                //Drawing - Game
+                ctx.beginPath()
+                ctx.arc(circ1.xPos,circ1.yPos,circ1.radius,0, 2 * Math.PI)
+                ctx.fillStyle = "green"
+                ctx.fill()
+
+                ctx.beginPath()
+                ctx.arc(jeff.xPos,jeff.yPos,jeff.radius,0, 2 * Math.PI)
+                ctx.fillStyle = "yellow"
+                ctx.fill()
+
+                //Game Over - Screen Trigger
+                if(didCircleCircleColl(circ1.xPos,circ1.yPos,circ1.radius,jeff.xPos,jeff.yPos,jeff.radius)){
+                    //How do we draw a giant black filled-in rectangle over the whole screen?
+                    isGameOver = true
+                }
             }
 
             if(isGameOver){
@@ -130,9 +162,6 @@
                 ctx.font = '50px serif'
                 ctx.fillText("GAME OVER...", 100, 100)
             }
-
-
-
 
 
             window.requestAnimationFrame(gameLoop)
