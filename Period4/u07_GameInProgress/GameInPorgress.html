@@ -59,7 +59,7 @@
 
 
 
-        let isGameOver = false
+        let currentScreenNum = 0 //screen numbers: start (0), game over (-1), Game Screen (1)
 
         let isColorRandom = true
 
@@ -70,8 +70,31 @@
             prevTimeStamp = currentTimeStamp
             ctx.clearRect(0,0,500,500)
 
-            //This if-statement controls whether the game code gets run or not
-            if(!isGameOver){
+            /*
+            Start Menu (#0)
+            */
+            if(currentScreenNum===0){
+                ctx.fillStyle = "black"
+                ctx.fillRect(0,0,500,500)
+                ctx.fillStyle = "yellow"
+                ctx.font = '50px serif'
+                ctx.fillText("Main Screen", 100, 100)
+                ctx.font = '30px serif'
+                ctx.fillText("Press Space to Start Game", 80, 300)
+
+                //User Input - Start Menu
+                if(kbInput.space.isPressed){
+                    currentScreenNum = 1
+                }
+
+            }
+
+
+
+            /*
+            Game Screen (#1)
+             */
+            if(currentScreenNum===1){
                 //Calculations - Game
                 circ1.xPos = circ1.xPos + circ1.xVel*timeElapsed
                 circ1.yPos = circ1.yPos + circ1.yVel*timeElapsed
@@ -151,11 +174,14 @@
                 //Game Over - Screen Trigger
                 if(didCircleCircleColl(circ1.xPos,circ1.yPos,circ1.radius,jeff.xPos,jeff.yPos,jeff.radius)){
                     //How do we draw a giant black filled-in rectangle over the whole screen?
-                    isGameOver = true
+                    currentScreenNum = -1
                 }
             }
 
-            if(isGameOver){
+            /*
+            Game Over Screen (#-1)
+             */
+            if(currentScreenNum===-1){
                 ctx.fillStyle = "black"
                 ctx.fillRect(0,0,500,500)
                 ctx.fillStyle = "yellow"
@@ -199,6 +225,7 @@
         canvas.addEventListener('keydown', keyHandler)
         canvas.addEventListener('keyup', keyHandler)
 
+        //link to all key values: https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values
         let kbInput = {
             left : {
                 value : "ArrowLeft",
@@ -216,6 +243,10 @@
                 value : "ArrowUp",
                 isPressed: false,
             },
+            space : {
+                value : " ",
+                isPressed : false,
+            },
         }
 
         function keyHandler(event) {
@@ -225,6 +256,9 @@
             if(type==="keydown"){
                 isPressed = true
             }
+
+            //console.log(event.key) //logs key stroke values if needed
+
             if(event.key===kbInput.left.value){
                 kbInput.left.isPressed = isPressed
             }
@@ -236,6 +270,9 @@
             }
             if(event.key===kbInput.down.value){
                 kbInput.down.isPressed = isPressed
+            }
+            if(event.key===kbInput.space.value){
+                kbInput.space.isPressed = isPressed
             }
         }
 
