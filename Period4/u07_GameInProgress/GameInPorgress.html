@@ -37,27 +37,11 @@
             -Character's Name: Jeff
          */
 
+        let circ1
 
+        let jeff
 
-
-        let circ1 = {
-            xPos: 250,
-            yPos: 100,
-            xVel: 120,
-            yVel: 120,
-            radius: 40,
-        }
-
-        let jeff = {
-            xPos: 100,
-            yPos: 200,
-            xVel: 0,
-            yVel: 0,
-            radius: 20,
-        }
-
-
-
+        let spaceIsPressedPrevFrame = false
 
         let currentScreenNum = 0 //screen numbers: start (0), game over (-1), Game Screen (1)
 
@@ -82,9 +66,40 @@
                 ctx.font = '30px serif'
                 ctx.fillText("Press Space to Start Game", 80, 300)
 
+                //So in order to detect that a key has been tapped (versus that it is just being held down) is....
+                //-You need to pay attention to kbInput.space.isPressed
+                //--In particular, we want to know the exact moment that we transition from the space key being pressed down
+                //    to the space key being unpressed
+                //--In other words, what is the exact moment that kbInput.space.isPressed transitoins from...
+                //   -true
+                //    to a value of...
+                //   -false
+
                 //User Input - Start Menu
                 if(kbInput.space.isPressed){
+                    spaceIsPressedPrevFrame = true
+                }
+                //true true true true true true true true true true true false false false false
+                //                                                     ^^^
+                //                                  It's this transition that we want to pay attention to.
+                if(spaceIsPressedPrevFrame===true && kbInput.space.isPressed===false){
+                    spaceIsPressedPrevFrame = false
                     currentScreenNum = 1
+                    circ1 = {
+                        xPos: 250,
+                        yPos: 100,
+                        xVel: 120,
+                        yVel: 120,
+                        radius: 40,
+                    }
+
+                    jeff = {
+                        xPos: 100,
+                        yPos: 200,
+                        xVel: 0,
+                        yVel: 0,
+                        radius: 20,
+                    }
                 }
 
             }
@@ -187,6 +202,13 @@
                 ctx.fillStyle = "yellow"
                 ctx.font = '50px serif'
                 ctx.fillText("GAME OVER...", 100, 100)
+                ctx.font = '20px serif'
+                ctx.fillText("Press Space to Return to Main Menu", 80, 300)
+
+                //User Input
+                if(kbInput.space.isPressed){
+                    currentScreenNum = 0
+                }
             }
 
 
