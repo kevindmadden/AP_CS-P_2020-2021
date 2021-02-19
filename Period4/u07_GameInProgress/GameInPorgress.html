@@ -38,8 +38,30 @@
          */
 
         let circ1
-
         let jeff
+        let bullet
+
+        function setInitialValues(){
+            circ1 = {
+                xPos: 250,
+                yPos: 100,
+                xVel: 120,
+                yVel: 120,
+                radius: 40,
+            }
+
+            jeff = {
+                xPos: 100,
+                yPos: 200,
+                xVel: 0,
+                yVel: 0,
+                radius: 20,
+            }
+
+            bullet = {
+                xPos: jeff.xPos,
+            }
+        }
 
         let spaceIsPressedPrevFrame = false
 
@@ -85,26 +107,10 @@
                 if(spaceIsPressedPrevFrame===true && kbInput.space.isPressed===false){
                     spaceIsPressedPrevFrame = false
                     currentScreenNum = 1
-                    circ1 = {
-                        xPos: 250,
-                        yPos: 100,
-                        xVel: 120,
-                        yVel: 120,
-                        radius: 40,
-                    }
-
-                    jeff = {
-                        xPos: 100,
-                        yPos: 200,
-                        xVel: 0,
-                        yVel: 0,
-                        radius: 20,
-                    }
+                    setInitialValues()
                 }
 
             }
-
-
 
             /*
             Game Screen (#1)
@@ -139,7 +145,7 @@
                     jeff.yVel = 0
                     jeff.yPos = 500 - jeff.radius
                 }
-                console.log(jeff.yPos)
+
 
 
                 //Right Wall Detection
@@ -186,6 +192,8 @@
                 ctx.fillStyle = "yellow"
                 ctx.fill()
 
+                //We need something down here... an if-statement that stops the bullet from being drawn if it hasn't been shot yet
+
                 //Game Over - Screen Trigger
                 if(didCircleCircleColl(circ1.xPos,circ1.yPos,circ1.radius,jeff.xPos,jeff.yPos,jeff.radius)){
                     //How do we draw a giant black filled-in rectangle over the whole screen?
@@ -207,8 +215,14 @@
 
                 //User Input
                 if(kbInput.space.isPressed){
+                    spaceIsPressedPrevFrame = true
+                }
+                if(spaceIsPressedPrevFrame===true && kbInput.space.isPressed===false) {
+                    spaceIsPressedPrevFrame = false
                     currentScreenNum = 0
                 }
+
+
             }
 
 
