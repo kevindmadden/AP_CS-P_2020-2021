@@ -37,17 +37,18 @@
             -Character's Name: Jeff
          */
 
-        let circ1
+        let enemy
         let jeff
         let bullet
 
         function setInitialValues(){
-            circ1 = {
+            enemy = {
                 xPos: 250,
                 yPos: 100,
                 xVel: 120,
                 yVel: 120,
                 radius: 40,
+                isAlive: true,
             }
 
             jeff = {
@@ -122,8 +123,8 @@
              */
             if(currentScreenNum===1){
                 //Calculations - Game
-                circ1.xPos = circ1.xPos + circ1.xVel*timeElapsed
-                circ1.yPos = circ1.yPos + circ1.yVel*timeElapsed
+                enemy.xPos = enemy.xPos + enemy.xVel*timeElapsed
+                enemy.yPos = enemy.yPos + enemy.yVel*timeElapsed
 
                 jeff.xPos = jeff.xPos + jeff.xVel*timeElapsed
                 jeff.yPos = jeff.yPos + jeff.yVel*timeElapsed
@@ -131,7 +132,7 @@
                 if(bullet.isFiring){
                     bullet.xPos = bullet.xPos + bullet.xVel*timeElapsed
                 }
-                
+
                 if(bullet.xPos > 500 + bullet.radius){
                     bullet.isFiring = false
                 }
@@ -170,43 +171,70 @@
 
 
                 //Right Wall Detection
-                if(circ1.xPos+circ1.radius > 500){
-                    circ1.xVel = -120
+                if(enemy.xPos+enemy.radius > 500){
+                    enemy.xVel = -120
                     if(isColorRandom){ //equivalent: if(isColorRandom===true){
                         ctx.fillStyle = getRandomColor()
                     }
                 }
 
                 //Bottom Wall Detection
-                if(circ1.yPos+circ1.radius > 500){
-                    circ1.yVel = random(-700,-50)
+                if(enemy.yPos+enemy.radius > 500){
+                    enemy.yVel = random(-700,-50)
                     if(isColorRandom){
                         ctx.fillStyle = getRandomColor()
                     }
                 }
 
                 //Left Wall Detection
-                if(circ1.xPos-circ1.radius < 0){
-                    circ1.xVel = 120
+                if(enemy.xPos-enemy.radius < 0){
+                    enemy.xVel = 120
                     if(isColorRandom){
                         ctx.fillStyle = getRandomColor()
                     }
                 }
 
                 //Top Wall Detection
-                if(circ1.yPos - circ1.radius < 0){
-                    circ1.yVel = 120
+                if(enemy.yPos - enemy.radius < 0){
+                    enemy.yVel = 120
                     if(isColorRandom){
                         ctx.fillStyle = getRandomColor()
                     }
                     isColorRandom = false
                 }
 
+                /*
+                    Collisions Detection!
+                 */
+                //Bullets
+                if(didCircleCircleColl(bullet.xPos, bullet.yPos, bullet.radius, enemy.xPos, enemy.yPos, enemy.radius)){
+                    enemy.isAlive = false
+                    bullet.isFiring = false
+                }
+
+                //Enemy
+                if(!enemy.isAlive){
+                    enemy.xPos = 300
+                    enemy.yPos = 300
+                    enemy.isAlive = true
+                }
+
+
+
+                //Game Over - Screen Trigger
+                if(didCircleCircleColl(enemy.xPos,enemy.yPos,enemy.radius,jeff.xPos,jeff.yPos,jeff.radius)){
+                    //How do we draw a giant black filled-in rectangle over the whole screen?
+                    currentScreenNum = -1
+                }
+
+
                 //Drawing - Game
-                ctx.beginPath()
-                ctx.arc(circ1.xPos,circ1.yPos,circ1.radius,0, 2 * Math.PI)
-                ctx.fillStyle = "green"
-                ctx.fill()
+                if(enemy.isAlive){
+                    ctx.beginPath()
+                    ctx.arc(enemy.xPos,enemy.yPos,enemy.radius,0, 2 * Math.PI)
+                    ctx.fillStyle = "green"
+                    ctx.fill()
+                }
 
                 ctx.beginPath()
                 ctx.arc(jeff.xPos,jeff.yPos,jeff.radius,0, 2 * Math.PI)
@@ -218,15 +246,6 @@
                 ctx.fillStyle = "black"
                 ctx.fill()
 
-
-
-                //We need something down here... an if-statement that stops the bullet from being drawn if it hasn't been shot yet
-
-                //Game Over - Screen Trigger
-                if(didCircleCircleColl(circ1.xPos,circ1.yPos,circ1.radius,jeff.xPos,jeff.yPos,jeff.radius)){
-                    //How do we draw a giant black filled-in rectangle over the whole screen?
-                    currentScreenNum = -1
-                }
             }
 
             /*
