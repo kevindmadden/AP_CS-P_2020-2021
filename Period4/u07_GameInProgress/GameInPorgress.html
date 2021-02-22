@@ -60,6 +60,11 @@
 
             bullet = {
                 xPos: jeff.xPos,
+                yPos: jeff.yPos,
+                xVel: 300,
+                yVel: jeff.yVel,
+                radius: 5,
+                isFiring: false,
             }
         }
 
@@ -104,7 +109,7 @@
                 //true true true true true true true true true true true false false false false
                 //                                                     ^^^
                 //                                  It's this transition that we want to pay attention to.
-                if(spaceIsPressedPrevFrame===true && kbInput.space.isPressed===false){
+                if(spaceIsPressedPrevFrame===true && kbInput.space.isPressed===false){ //When the space key is released...
                     spaceIsPressedPrevFrame = false
                     currentScreenNum = 1
                     setInitialValues()
@@ -122,6 +127,19 @@
 
                 jeff.xPos = jeff.xPos + jeff.xVel*timeElapsed
                 jeff.yPos = jeff.yPos + jeff.yVel*timeElapsed
+
+                if(bullet.isFiring){
+                    bullet.xPos = bullet.xPos + bullet.xVel*timeElapsed
+                }
+
+                if(bullet.xPos > 500 + bullet.radius){
+                    bullet.isFiring = false
+                }
+
+                if(!bullet.isFiring){
+                    bullet.xPos = jeff.xPos
+                    bullet.yPos = jeff.yPos
+                }
 
 
                 //User Input - Game
@@ -144,6 +162,9 @@
                 if(jeff.yPos + jeff.radius > 500){ //lower barrier
                     jeff.yVel = 0
                     jeff.yPos = 500 - jeff.radius
+                }
+                if(kbInput.space.isPressed){
+                    bullet.isFiring = true
                 }
 
 
@@ -191,6 +212,13 @@
                 ctx.arc(jeff.xPos,jeff.yPos,jeff.radius,0, 2 * Math.PI)
                 ctx.fillStyle = "yellow"
                 ctx.fill()
+
+                ctx.beginPath()
+                ctx.arc(bullet.xPos,bullet.yPos,bullet.radius,0, 2 * Math.PI)
+                ctx.fillStyle = "black"
+                ctx.fill()
+
+
 
                 //We need something down here... an if-statement that stops the bullet from being drawn if it hasn't been shot yet
 
