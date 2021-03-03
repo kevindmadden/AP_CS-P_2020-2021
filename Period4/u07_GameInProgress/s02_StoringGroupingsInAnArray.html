@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Arrays</title>
+</head>
+<body>
+<script>
+
+    let enemy1 = {
+        name: "Mario",
+        xPos: 250,
+        yPos: 100,
+        xVel: 120,
+        yVel: 120,
+        radius: 50,
+        isAlive: true,
+    }
+
+    let enemy2 = {
+        name: "Ness",
+        xPos: 150,
+        yPos: 200,
+        xVel: 120,
+        yVel: 120,
+        radius: 20,
+        isAlive: true,
+    }
+
+    let enemy3 = {
+        name: "Luigi",
+        xPos: 350,
+        yPos: 300,
+        xVel: 60,
+        yVel: 60,
+        radius: 40,
+        isAlive: true,
+    }
+
+    //  index:     0       1       2
+    let enemies = [enemy1, enemy2, enemy3]
+
+    for(let enemy of enemies){
+        console.log(enemy.name)
+    }
+
+
+
+
+
+
+</script>
+
+</body>
+</html>

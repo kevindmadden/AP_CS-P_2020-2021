@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Arrays</title>
+</head>
+<body>
+<script>
+
+    let enemy1 = {
+        name: "Mario",
+        color: "Red",
+        xPos: 350,
+        yPos: 400,
+        xVel: 120,
+        yVel: 120,
+        radius: 40,
+        isAlive: true,
+    }
+
+    let enemy2 = {
+        name: "Luigi",
+        color: "Green",
+        xPos: 250,
+        yPos: 375,
+        xVel: 120,
+        yVel: 120,
+        radius: 40,
+        isAlive: true,
+    }
+
+    let enemy3 = {
+        name: "Madden",
+        color: "Blue",
+        xPos: 100,
+        yPos: 100,
+        xVel: 120,
+        yVel: 120,
+        radius: 40,
+        isAlive: true,
+    }
+
+    let enemies = [enemy1, enemy2, enemy3]
+    //                               ^^
+
+    //This would print out the values in our array
+    for(let enemy of enemies){
+        console.log(enemy.name)
+    }
+
+</script>
+
+</body>
+</html>

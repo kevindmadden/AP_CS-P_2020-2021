@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <canvas id="canvas" width="500px" height="500px" style="border: 1px solid black;" tabindex="1" autofocus></canvas>
+    <script>
+        //Canvas API: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
+        const canvas = document.getElementById("canvas")
+        const ctx = canvas.getContext("2d") //ctx is just referring to the fact that we want to draw in 2d on our canvas
+        //Do not edit stuff above
+
+        let enemies = [] //empty array
+
+        let counter = 0
+        do{
+            let enemy = createNewEnemy(random(50, 450), random(50, 450), random(10,60), getRandomColor())
+            enemies.push(enemy)
+            counter++ //counter = counter + 1
+        }while(counter < 1000)
+
+        let prevTimeStamp = 0
+        window.requestAnimationFrame(gameLoop)
+        function gameLoop(currentTimeStamp){
+            let timeElapsed = (currentTimeStamp-prevTimeStamp)/1000
+            prevTimeStamp = currentTimeStamp
+            ctx.clearRect(0,0,500,500)
+
+
+            for(let enemy of enemies){
+                ctx.beginPath()
+                ctx.arc(enemy.xPos,enemy.yPos,enemy.radius,0, 2 * Math.PI)
+                ctx.fillStyle = enemy.color
+                ctx.fill()
+            }
+
+
+            window.requestAnimationFrame(gameLoop)
+        }
+
+        function createNewEnemy(xPos, yPos, radius, color){
+            let enemy = {
+                xPos: xPos,
+                yPos: yPos,
+                xVel: 120,
+                yVel: 120,
+                radius: radius,
+                isAlive: true,
+                color: color,
+            }
+            return enemy
+        }
+
+        function random(min, max) {
+            return Math.floor(Math.random() * (max - min) ) + min;
+        }
+
+        function getRandomColor(){
+            return 'rgb('+random(0,255)+', '+random(0,255)+', '+random(0,255)+')'
+        }
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

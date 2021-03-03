@@ -41,16 +41,19 @@
         let jeff
         let bullet
 
-        function setInitialValues(){
+        function setEnemyInitialValues(){
             enemy = {
-                xPos: 250,
-                yPos: 100,
+                xPos: 550,
+                yPos: random(50,450),
                 xVel: 120,
-                yVel: 120,
+                yVel: random(-120,120),
                 radius: 40,
                 isAlive: true,
             }
+        }
 
+        function setInitialValues(){
+            setEnemyInitialValues()
             jeff = {
                 xPos: 100,
                 yPos: 200,
@@ -214,9 +217,7 @@
 
                 //Enemy
                 if(!enemy.isAlive){
-                    enemy.xPos = 300
-                    enemy.yPos = 300
-                    enemy.isAlive = true
+                    setEnemyInitialValues()
                 }
 
 

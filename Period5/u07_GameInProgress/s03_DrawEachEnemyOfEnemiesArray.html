@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <canvas id="canvas" width="500px" height="500px" style="border: 1px solid black;" tabindex="1" autofocus></canvas>
+    <script>
+        //Canvas API: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
+        const canvas = document.getElementById("canvas")
+        const ctx = canvas.getContext("2d") //ctx is just referring to the fact that we want to draw in 2d on our canvas
+        //Do not edit stuff above
+
+        let enemy1 = {
+            xPos: 400,
+            yPos: 400,
+            xVel: 120,
+            yVel: 120,
+            radius: 20,
+            isAlive: true,
+            color: "red",
+        }
+
+        let enemy2 = {
+            xPos: 300,
+            yPos: 300,
+            xVel: 120,
+            yVel: 120,
+            radius: 40,
+            isAlive: true,
+            color: "blue",
+        }
+
+        let enemy3 = {
+            xPos: 150,
+            yPos: 150,
+            xVel: 120,
+            yVel: 120,
+            radius: 60,
+            isAlive: true,
+            color: "green",
+        }
+
+        //              0       1       2
+        let enemies = [enemy1, enemy2, enemy3]
+
+
+        let prevTimeStamp = 0
+        window.requestAnimationFrame(gameLoop)
+        function gameLoop(currentTimeStamp){
+            let timeElapsed = (currentTimeStamp-prevTimeStamp)/1000
+            prevTimeStamp = currentTimeStamp
+            ctx.clearRect(0,0,500,500)
+
+
+            /*
+            Code Block A            (Code block A is equivalent to code block B.)
+             */
+            //The existing way we would know we could draw all three enemies...
+            /*ctx.beginPath()
+            ctx.arc(enemy1.xPos,enemy1.yPos,enemy1.radius,0, 2 * Math.PI)
+            ctx.fillStyle = "green"
+            ctx.fill()
+
+            ctx.beginPath()
+            ctx.arc(enemy2.xPos,enemy2.yPos,enemy2.radius,0, 2 * Math.PI)
+            ctx.fillStyle = "green"
+            ctx.fill()
+
+            ctx.beginPath()
+            ctx.arc(enemy3.xPos,enemy3.yPos,enemy3.radius,0, 2 * Math.PI)
+            ctx.fillStyle = "green"
+            ctx.fill()*/
+
+
+
+            /*
+            Code Block B
+            It is preferred to use the for-loop because it requires less code and makes your code easier to read.
+             */
+            //The new and improved way of drawing all three enemies efficiently, looks like this...
+            for(let enemy of enemies){
+                ctx.beginPath()
+                ctx.arc(enemy.xPos,enemy.yPos,enemy.radius,0, 2 * Math.PI)
+                ctx.fillStyle = enemy.color
+                ctx.fill()
+            }
+
+
+
+
+
+            window.requestAnimationFrame(gameLoop)
+        }
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
