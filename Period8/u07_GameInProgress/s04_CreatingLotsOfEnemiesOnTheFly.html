@@ -26,8 +26,8 @@
             prevTimeStamp = currentTimeStamp
             ctx.clearRect(0,0,500,500)
 
-
             for(let enemy of enemies){
+                enemy = {...}
                 ctx.beginPath()
                 ctx.arc(enemy.xPos,enemy.yPos,enemy.radius,0, 2 * Math.PI)
                 ctx.fillStyle = enemy.color

@@ -37,23 +37,36 @@
             -Character's Name: Jeff
          */
 
-        let enemy
+
+        /*
+        Things to do Still:
+            -Show how you could incorporate graphics into the game.
+            -(?) Mouse input
+            -Give overview of everything we've worked through
+         */
+
+
+        let enemies  //empty array
         let jeff
         let bullet
 
-        function setInitialValuesEnemy(){
-            enemy = {
-                xPos: 550,
-                yPos: random(50,450),
+        function createNewEnemy(){
+            let enemy = {
+                xPos: 560,
+                yPos: random(50, 450),
                 xVel: 120,
                 yVel: random(-120,120),
-                radius: 40,
+                radius: random(10,60),
                 isAlive: true,
+                color: getRandomColor(),
             }
+            return enemy
         }
 
         function setInitialValues(){
-            setInitialValuesEnemy()
+            enemies = []
+            enemies.push(createNewEnemy())
+
             jeff = {
                 xPos: 100,
                 yPos: 200,
@@ -126,8 +139,11 @@
             * * * * * * * * * * * * * * * * * * * * * */
             if(currentScreenNum===1){
                 //Calculations - Game
-                enemy.xPos = enemy.xPos + enemy.xVel*timeElapsed
-                enemy.yPos = enemy.yPos + enemy.yVel*timeElapsed
+
+                for(let enemy of enemies){
+                    enemy.xPos = enemy.xPos + enemy.xVel*timeElapsed
+                    enemy.yPos = enemy.yPos + enemy.yVel*timeElapsed
+                }
 
                 jeff.xPos = jeff.xPos + jeff.xVel*timeElapsed
                 jeff.yPos = jeff.yPos + jeff.yVel*timeElapsed
@@ -175,69 +191,75 @@
 
 
 
-                //Right Wall Detection
-                if(enemy.xPos+enemy.radius > 500){
-                    enemy.xVel = -120
-                    if(isColorRandom){ //equivalent: if(isColorRandom===true){
-                        ctx.fillStyle = getRandomColor()
+                //Wall Detection Collisions
+                for(let enemy of enemies){
+                    //Right Wall Detection
+                    if(enemy.xPos+enemy.radius > 500){
+                        enemy.xVel = -60
+                        if(isColorRandom){ //equivalent: if(isColorRandom===true){
+                            ctx.fillStyle = getRandomColor()
+                        }
+                    }
+                    //Bottom Wall Detection
+                    if(enemy.yPos+enemy.radius > 500){
+                        enemy.yVel = -60
+                        if(isColorRandom){
+                            ctx.fillStyle = getRandomColor()
+                        }
+                    }
+                    //Left Wall Detection
+                    if(enemy.xPos-enemy.radius < 0){
+                        enemy.xVel = 60
+                        if(isColorRandom){
+                            ctx.fillStyle = getRandomColor()
+                        }
+                    }
+                    //Top Wall Detection
+                    if(enemy.yPos - enemy.radius < 0){
+                        enemy.yVel = 60
+                        if(isColorRandom){
+                            ctx.fillStyle = getRandomColor()
+                        }
+                        isColorRandom = false
                     }
                 }
 
-                //Bottom Wall Detection
-                if(enemy.yPos+enemy.radius > 500){
-                    enemy.yVel = random(-700,-50)
-                    if(isColorRandom){
-                        ctx.fillStyle = getRandomColor()
-                    }
-                }
-
-                //Left Wall Detection
-                if(enemy.xPos-enemy.radius < 0){
-                    enemy.xVel = 120
-                    if(isColorRandom){
-                        ctx.fillStyle = getRandomColor()
-                    }
-                }
-
-                //Top Wall Detection
-                if(enemy.yPos - enemy.radius < 0){
-                    enemy.yVel = 120
-                    if(isColorRandom){
-                        ctx.fillStyle = getRandomColor()
-                    }
-                    isColorRandom = false
-                }
 
                 /*
-                    Collisions Detection!
+                    Collision Detection Between Enemies and Jeff/Bullet
                  */
-                //Bullets
-                if(didCircleCircleColl(bullet.xPos, bullet.yPos, bullet.radius, enemy.xPos, enemy.yPos, enemy.radius)){
-                    enemy.isAlive = false
-                    bullet.isFiring = false
+                for(let enemy of enemies){
+                    //Bullets
+                    if(didCircleCircleColl(bullet.xPos, bullet.yPos, bullet.radius, enemy.xPos, enemy.yPos, enemy.radius)){
+                        enemy.isAlive = false
+                        bullet.isFiring = false
+                    }
+                    //Enemy
+                    if(!enemy.isAlive){
+                        enemies.push(createNewEnemy())
+                        enemies.push(createNewEnemy())
+                        let indexOfCurrentEnemy = enemies.indexOf(enemy)
+                        enemies.splice(indexOfCurrentEnemy, 1) //this is how you delete a specific item from an array
+                    }
+                    //Game Over - Screen Trigger
+                    if(didCircleCircleColl(enemy.xPos,enemy.yPos,enemy.radius,jeff.xPos,jeff.yPos,jeff.radius)){
+                        //How do we draw a giant black filled-in rectangle over the whole screen?
+                        currentScreenNum = -1
+                    }
                 }
 
-                //Enemy
-                if(!enemy.isAlive){
-                    setInitialValuesEnemy()
-                }
-
-
-
-                //Game Over - Screen Trigger
-                if(didCircleCircleColl(enemy.xPos,enemy.yPos,enemy.radius,jeff.xPos,jeff.yPos,jeff.radius)){
-                    //How do we draw a giant black filled-in rectangle over the whole screen?
-                    currentScreenNum = -1
-                }
 
 
                 //Drawing - Game
-                if(enemy.isAlive){
-                    ctx.beginPath()
-                    ctx.arc(enemy.xPos,enemy.yPos,enemy.radius,0, 2 * Math.PI)
-                    ctx.fillStyle = "green"
-                    ctx.fill()
+                for(let enemy of enemies){
+                    if(enemy.isAlive){
+                        ctx.beginPath()
+                        ctx.arc(enemy.xPos,enemy.yPos,enemy.radius,0, 2 * Math.PI)
+                        ctx.fillStyle = "green"
+                        ctx.fill()
+                    }
                 }
+
 
                 ctx.beginPath()
                 ctx.arc(jeff.xPos,jeff.yPos,jeff.radius,0, 2 * Math.PI)

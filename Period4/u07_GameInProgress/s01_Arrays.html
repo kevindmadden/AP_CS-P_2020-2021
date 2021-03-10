@@ -38,6 +38,9 @@
     console.log(smashBros[6])
     console.log(smashBros[7])
 
+    let indexToRemove = smashBros.indexOf("Ness")
+    smashBros.splice(indexToRemove, 1)
+
     //This would print out the values in our array
     for(let item of smashBros){
         console.log(item)

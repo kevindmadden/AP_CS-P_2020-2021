@@ -11,13 +11,13 @@
         //Do not edit stuff above
 
         let enemy1 = {
-            xPos: 400,
+            xPos: random(50,100),
             yPos: 400,
             xVel: 120,
             yVel: 120,
             radius: 20,
             isAlive: true,
-            color: "red",
+            color: getRandomColor(),
         }
 
         let enemy2 = {
@@ -90,6 +90,14 @@
 
 
             window.requestAnimationFrame(gameLoop)
+        }
+
+        function random(min, max) {
+            return Math.floor(Math.random() * (max - min) ) + min;
+        }
+
+        function getRandomColor(){
+            return 'rgb('+random(0,255)+', '+random(0,255)+', '+random(0,255)+')'
         }
 
 
