@@ -41,13 +41,10 @@
 
         /*
         Things to do Still:
+            -Show how you could incorporate graphics into the game.
+            -(?) Mouse input
             -Give overview of everything we've worked through
          */
-
-        // 1. Keyboard Input
-        // 2. Screen Number System
-
-
 
 
         let enemies  //empty array
@@ -76,7 +73,6 @@
             score = 0
             enemies = []
             enemies.push(createNewEnemy())
-
 
             jeff = {
                 xPos: 100,
@@ -154,7 +150,6 @@
             if(currentScreenNum===1){
                 //Calculations - Game
 
-                    // pos = prev-pos + v*t
                 for(let enemy of enemies){
                     enemy.xPos = enemy.xPos + enemy.xVel*timeElapsed
                     enemy.yPos = enemy.yPos + enemy.yVel*timeElapsed
@@ -322,8 +317,10 @@
 
             }
 
+
             window.requestAnimationFrame(gameLoop)
         }
+
 
         function didCircleCircleColl(cir1_x, cir1_y, cir1_r, cir2_x, cir2_y, cir2_r){
             let distanceBetweenCenters = Math.sqrt( Math.pow(cir2_x-cir1_x,2) + Math.pow(cir2_y-cir1_y, 2))
@@ -335,9 +332,36 @@
             }else{
                 //they are touching
                 return true
-            }
 
+            }
         }
+
+        function didRectRectColl(rect1_x, rect1_y, rect1_width, rect1_height, rect2_x, rect2_y, rect2_width, rect2_height){ //https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
+            if (rect1_x < rect2_x + rect2_width &&
+                rect1_x + rect1_width > rect2_x &&
+                rect1_y < rect2_y + rect2_height &&
+                rect1_y + rect1_height > rect2_y) {
+                return true
+            }else{
+                return false
+            }
+        }
+
+        function didRectCircleColl(rect_x, rect_y, rect_w, rect_h, circle_x, circle_y, circle_r){
+            let distX = Math.abs(circle_x - rect_x-rect_w/2);
+            let distY = Math.abs(circle_y - rect_y-rect_h/2);
+
+            if (distX > (rect_w/2 + circle_r)) { return false; }
+            if (distY > (rect_h/2 + circle_r)) { return false; }
+
+            if (distX <= (rect_w/2)) { return true; }
+            if (distY <= (rect_h/2)) { return true; }
+
+            let dx=distX-rect_w/2;
+            let dy=distY-rect_h/2;
+            return (dx*dx+dy*dy<=(circle_r*circle_r));
+        }
+
 
         function random(min, max) {
             return Math.floor(Math.random() * (max - min) ) + min;
