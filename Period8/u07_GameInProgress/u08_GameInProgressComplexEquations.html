@@ -8,44 +8,6 @@
         //Canvas API: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
         const canvas = document.getElementById("canvas")
         const ctx = canvas.getContext("2d") //ctx is just referring to the fact that we want to draw in 2d on our canvas
-        //https://www.base64-image.de/ Use this website to convert images to base 64
-        //Do not edit stuff above
-
-        /*Ideas so far:
-            -Some sort of dodging game
-                -What happens when you run into something you're trying to dodge?
-                    -Let's get a game over screen to appear (in the future, we could in that you have so many lives)
-            -Keeping track of game stats (timer, score)
-            -Multiple circles to dodge (so maybe start with 1 circle to dodge, then 2, then 3, etc.)
-            -The ball could gradually change sizes
-            -Barrier: Making it so that you have to keep the circle on the screen (stop the circle from going through walls) [possibly make barrier instantly KO player]
-            -Slow down the ball we are moving gradually as time passes (to make the game harder)
-            -More design/theme (rocketship and asteroid)
-            -level system
-            -add a start screen
-                -Major challenge: How do we have two separate screens
-                -Buttons of some sort (the way the user presses a button has to be with some form of user input)
-                    -Buttons that are part of the canvas
-                    -Another potential option would be HTML buttons
-                    -How to press buttons?
-                        -Straightforward if using HTML buttons
-                        -Options if the buttons are part of the canvas
-                            -Explore user input using the mouse
-                            -******User input through the keyboard
-                                -Press the number for the level you want to play
-            -Canvas could get smaller each level
-            -Powerup items perhaps?
-            -Character's Name: Jeff
-         */
-
-
-        /*
-        Things to do Still:
-            -Show how you could incorporate graphics into the game.
-            -(?) Mouse input
-            -Give overview of everything we've worked through
-         */
-
 
         let enemies  //empty array
         let jeff
@@ -57,32 +19,15 @@
 
 
         function createNewEnemy(){
-            let enemy
-            if(random(1,3)===1){
-                enemy = {
-                    xPos: 560,
-                    yPos: random(50, 450),
-                    xVel: 120,
-                    yVel: random(-120, 120),
-                    radius: random(10, 60),
-                    isAlive: true,
-                    color: getRandomColor(),
-                    shape: "circle",
-                }
-            }else {
-                enemy = {
-                    xPos: 560,
-                    yPos: random(50, 450),
-                    width: random(20, 40),
-                    height: random(20,40),
-                    xVel: -120,
-                    yVel: random(-120, 120),
-                    isAlive: true,
-                    color: getRandomColor(),
-                    shape: "rectangle",
-                }
+            let enemy = {
+                xPos: 560,
+                yPos: random(50, 450),
+                xVel: 120,
+                yVel: random(-120,120),
+                radius: random(10,60),
+                isAlive: true,
+                color: getRandomColor(),
             }
-
             return enemy
         }
 
@@ -119,11 +64,20 @@
 
         let score = 0
 
+        let bulletTimeElapsed = 0 //NEW! (Complex Equations)
+
         window.requestAnimationFrame(gameLoop)
         function gameLoop(currentTimeStamp){
             let timeElapsed = (currentTimeStamp-prevTimeStamp)/1000
             prevTimeStamp = currentTimeStamp
             ctx.clearRect(0,0,500,500)
+
+            //This is a red rectangle that will follow your cursor on the screen
+            ctx.fillStyle = "red"
+            ctx.fillRect(xCursorPos-5, yCursorPos-5, 10, 10)
+            console.log(isMouseDown)
+
+
 
             /*
             Start Menu (#0)
@@ -172,11 +126,15 @@
                     enemy.yPos = enemy.yPos + enemy.yVel*timeElapsed
                 }
 
+                // pos = prior position + vel * time
+                // pos = pos_0 + v*t - 1/2(a)t^2
                 jeff.xPos = jeff.xPos + jeff.xVel*timeElapsed
                 jeff.yPos = jeff.yPos + jeff.yVel*timeElapsed
 
                 if(bullet.isFiring){
                     bullet.xPos = bullet.xPos + bullet.xVel*timeElapsed
+                    bulletTimeElapsed = bulletTimeElapsed + timeElapsed //NEW! (Complex Equations)
+                    bullet.yPos = bullet.yPos + bullet.yVel*bulletTimeElapsed + 0.5*(10)*Math.pow(bulletTimeElapsed,2) //NEW! (Complex Equations)
                 }
 
                 if(bullet.xPos > 500 + bullet.radius){
@@ -186,6 +144,7 @@
                 if(!bullet.isFiring){
                     bullet.xPos = jeff.xPos
                     bullet.yPos = jeff.yPos
+                    bulletTimeElapsed = 0 //NEW! (Complex Equations)
                 }
 
 
@@ -220,39 +179,35 @@
 
                 //Wall Detection Collisions
                 for(let enemy of enemies){
-                    if(enemy.shape==="circle"){
-                        //Right Wall Detection
-                        if(enemy.xPos+enemy.radius > 500){
-                            enemy.xVel = -60
+                    //Right Wall Detection
+                    if(enemy.xPos+enemy.radius > 500){
+                        enemy.xVel = -60
+                        if(isColorRandom){ //equivalent: if(isColorRandom===true){
+                            ctx.fillStyle = getRandomColor()
                         }
-                        //Bottom Wall Detection
-                        if(enemy.yPos+enemy.radius > 500){
-                            enemy.yVel = -60
-                        }
-                        //Left Wall Detection
-                        if(enemy.xPos-enemy.radius < 0){
-                            enemy.xVel = 60
-                        }
-                        //Top Wall Detection
-                        if(enemy.yPos - enemy.radius < 0){
-                            enemy.yVel = 60
-                        }
-                    }else if(enemy.shape==="rectangle"){
-                        if(enemy.xPos+enemy.width >500){ //Right wall detection
-                            enemy.xVel = -120
-                        }
-                        if(enemy.yPos+enemy.height > 500){ //bottom wall
-                            enemy.yVel = -120
-                        }
-                        if(enemy.xPos < 0){ //left wall
-                            enemy.xVel = 120
-                        }
-                        if(enemy.yPos < 0){ //top wall
-                            enemy.yVel = 120
-                        }
-
                     }
-
+                    //Bottom Wall Detection
+                    if(enemy.yPos+enemy.radius > 500){
+                        enemy.yVel = -60
+                        if(isColorRandom){
+                            ctx.fillStyle = getRandomColor()
+                        }
+                    }
+                    //Left Wall Detection
+                    if(enemy.xPos-enemy.radius < 0){
+                        enemy.xVel = 60
+                        if(isColorRandom){
+                            ctx.fillStyle = getRandomColor()
+                        }
+                    }
+                    //Top Wall Detection
+                    if(enemy.yPos - enemy.radius < 0){
+                        enemy.yVel = 60
+                        if(isColorRandom){
+                            ctx.fillStyle = getRandomColor()
+                        }
+                        isColorRandom = false
+                    }
                 }
 
                 /*
@@ -260,22 +215,12 @@
                  */
                 for(let enemy of enemies){
                     //Bullets
-                    if(enemy.shape==="circle"){
-                        if(didCircleCircleColl(bullet.xPos, bullet.yPos, bullet.radius, enemy.xPos, enemy.yPos, enemy.radius)){
-                            enemy.isAlive = false
-                            bullet.isFiring = false
-                            score++ //score = score+1
-                            console.log(score)
-                        }
-                    }else if(enemy.shape==="rectangle"){
-                        if(didRectCircleColl(enemy.xPos, enemy.yPos, enemy.width, enemy.height, bullet.xPos, bullet.yPos, bullet.radius)){
-                            enemy.isAlive = false
-                            bullet.isFiring = false
-                            score++ //score = score+1
-                            console.log(score)
-                        }
+                    if(didCircleCircleColl(bullet.xPos, bullet.yPos, bullet.radius, enemy.xPos, enemy.yPos, enemy.radius)){
+                        enemy.isAlive = false
+                        bullet.isFiring = false
+                        score++ //score = score+1
+                        console.log(score)
                     }
-
                     //Enemy
                     if(!enemy.isAlive){
                         enemies.push(createNewEnemy())
@@ -284,16 +229,10 @@
                         enemies.splice(indexOfCurrentEnemy, 1) //this is how you delete a specific item from an array
                     }
                     //Game Over - Screen Trigger
-                    if(enemy.shape==="circle"){
-                        if(didCircleCircleColl(enemy.xPos,enemy.yPos,enemy.radius,jeff.xPos,jeff.yPos,jeff.radius)){
-                            currentScreenNum = -1
-                        }
-                    }else if(enemy.shape==="rectangle"){
-                        if(didRectCircleColl(enemy.xPos, enemy.yPos, enemy.width, enemy.height,jeff.xPos,jeff.yPos,jeff.radius)){
-                            currentScreenNum = -1
-                        }
+                    if(didCircleCircleColl(enemy.xPos,enemy.yPos,enemy.radius,jeff.xPos,jeff.yPos,jeff.radius)){
+                        //How do we draw a giant black filled-in rectangle over the whole screen?
+                        currentScreenNum = -1
                     }
-
                 }
 
 
@@ -303,17 +242,11 @@
                 */
                 for(let enemy of enemies){
                     if(enemy.isAlive){
-                        if(enemy.shape==="circle"){
-                            ctx.beginPath()
-                            ctx.arc(enemy.xPos,enemy.yPos,enemy.radius+2,0, 2 * Math.PI)
-                            ctx.fillStyle = "yellow"
-                            ctx.fill()
-                            ctx.drawImage(enemyImage.basketball, enemy.xPos-enemy.radius, enemy.yPos-enemy.radius, 2*enemy.radius, 2*enemy.radius)
-                        }else if(enemy.shape==="rectangle"){
-                            ctx.fillStyle = enemy.color
-                            ctx.fillRect(enemy.xPos,enemy.yPos,enemy.width,enemy.height)
-                        }
-
+                        ctx.beginPath()
+                        ctx.arc(enemy.xPos,enemy.yPos,enemy.radius+2,0, 2 * Math.PI)
+                        ctx.fillStyle = "yellow"
+                        ctx.fill()
+                        ctx.drawImage(enemyImage.basketball, enemy.xPos-enemy.radius, enemy.yPos-enemy.radius, 2*enemy.radius, 2*enemy.radius)
 
                     }
                 }
@@ -413,6 +346,37 @@
         function getRandomColor(){
             return 'rgb('+random(0,255)+', '+random(0,255)+', '+random(0,255)+')'
         }
+
+
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        // Mouse/Cursor Input
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+        let xCursorPos = 0
+        let yCursorPos = 0
+        let isMouseDown = false
+
+        function getCursorPosition(canvas, event) {
+            const rect = canvas.getBoundingClientRect()
+            xCursorPos = event.clientX - rect.left
+            yCursorPos = event.clientY - rect.top
+            console.log("Coordinates - x: "+xCursorPos+", y: "+yCursorPos)
+        }
+
+        canvas.addEventListener('mousemove', function(e) {
+            getCursorPosition(canvas, e)
+        })
+
+        canvas.addEventListener('mousedown', function(e) {
+            getCursorPosition(canvas, e)
+            isMouseDown = true
+        })
+
+        canvas.addEventListener('mouseup', function(e) {
+            getCursorPosition(canvas, e)
+            isMouseDown = false
+        })
+
 
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

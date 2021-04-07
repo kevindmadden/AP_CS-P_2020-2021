@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Project - Testing Your Game Making Skills</title>
+</head>
+<body>
+    <h1>Project - Testing Your Game Making Skills</h1>
+    <h2>Submission:</h2>
+    Submit on canvas.
+    <h2>Description:</h2>
+        The time has come for you to test out your javascript skills by adding onto the game we have been working on in class. Think of this as a practice round for the project you will be working on for your AP portfolio. Since I am not able to help you on your portfolio project, this project is the time for you to get any questions you may have out of the way.
+    </p>
+    <h2>Requirements:</h2>
+    <ol>
+        <li>Use in a meaningful manner at least one of the two new collision functions introduced in class (rectangle+rectangle collision or rectangle+circle collision). <br>
+            <em>Possible ways to meet this requirement include (but are not limited to):</em>
+            <ul>
+                <li>Adding a rectangular power-up symbol that jeff has to hit</li>
+                <li>Adding a new enemy type that is rectangular</li>
+                <li>Something else of your choice</li>
+            </ul>
+        </li>
+        <li>Introduce something new into the game that could have multiple copies of itself on the screen at the same time *so you will need a function that returns a "grouping". Make use of an array like we did for the enemies where you push new copies of the group onto the array when you want them to appear on the screen and then splice (delete) copies from the array when you no longer need them on the screen. <strong>The array needs to be a new array that you add to the game.</strong> <br>
+            <em>Possible ways to meet this requirement include (but are not limited to):</em>
+            <ul>
+                <li>Adding a feature that allows Jeff to fire more than one bullet at a time</li>
+                <li>Something else of your choice</li>
+            </ul>
+        </li>
+        <li>In addition to the above two requirements, implement one additional new feature into the game. As discussed in class, there are many different ways you could add onto the game. Feel free to do add onto the game in whatever way you like as long as it is a meaningful addition (for example, changing Jeff's color so that he is green instead of yellow would not be a meaningful addition). If you're in doubt as to whether an addition you want to make is meaningful, then ask. Here are some of the more common ideas that we came up with in class for possible additions:
+            <ul>
+                <li><strong>Introducing a new form of user-input:</strong> You could add in a way to use the mouse or add in controls and features to play with two players.</li>
+                <li><strong>Doing things at specific times using timer functions:</strong> This is very general, and there is a lot of flexibility on what you could do for this option. One possibility is adding more variety to enemy movements. Currently, the enemies in our game change directions based on where they are located on the canvas, but timer functions would allow you to make the enemies move in new ways based on how much time has passed. See this page for what timer functions are and how to use them: <a href ="https://www.w3schools.com/js/js_timing.asp">https://www.w3schools.com/js/js_timing.asp.</a></li>
+                <li><strong>Doing things based on more complex mathematical equations:</strong> This is also very general. </li>
+
+            </ul>
+        </li>
+        <li>These three requirements must be met by adding three <strong>different</strong> new features to the game. You cannot use the same new feature to meet multiple requirements. That being said, if you are doing something on the more complex side of things, then there is the possibility that you could use it to meet multiple requirements (but you must confirm this with me).</li>
+
+        <li></li>
+    </ol>
+
+    <h2>Tips:</h2>
+    <ul>
+        <li>People sometimes find it helpful to get the game working first with print statements and keyboard input. Once it is working like that, then you could focus on actually drawing the board and registering clicks properly. </li>
+        <li>For drawing the board, you can make things a bit easier on yourself by carefully choosing the scales for your drawing area. Since the board is 6 rows and 7 columns, you could set your drawing area accordingly as follows:
+            <pre>StdDraw.setXscale(-0.0, +7);</pre>
+            <pre>StdDraw.setYscale(-0.0, +6);</pre>
+        </li>
+        <li>This will be the most complex project you have worked on thus far. Be especially careful that you always have your code indented correctly. Test your code frequently or it will become nearly impossible to debug your code.</li>
+        <li>Use methods as needed. They can often be a useful tool for eliminating unnecessary repetition in your code. They can also be helpful in making your code more organized and easier to read.</li>
+    </ul>
+
+    <h2>Grading:</h2>
+    <ul>
+        <li>It must be possible to play your game in order to earn any credit for this assignment.</li>
+        <li>2 points: Meet everything listed for requirements 2 and 3. If you do not meet one or more of the items listed under requirements 2 and 3, then your score on the assignment will be a 0/4. (Yes, of course you will be able to submit corrections.)</li>
+        <li>1 point - Display - Meet all the below requirements:
+        <ul>
+            <li>Accurately draw the board and the pieces on the board using the <code>StdDraw</code> library.</li>
+            <li>You may choose whatever color scheme (and other styling) you like as long as the board, player 1's pieces, and player 2's pieces are all clearly different colors.</li>
+            <li>Show a game over message on top of the board that states which player won.</li>
+        </ul>
+        <li>1 point - User Input - Meet all the below requirements:</li>
+        <ul>
+            <li>When a player clicks anywhere on a column, the player's piece should be dropped in that column if possible.</li>
+            <li>When a player clicks on a column that is already filled with pieces, nothing should happen; the same player should be able to continue clicking on columns until they choose a column where they can actually play a piece.</li>
+        </ul>
+        <li>0 points - If you wish, you may "draw" the board just using only print statements. You may also have the user use keyboard input to play the game instead of clicking. If you chose both of these options, then you would not earn any credit for the Display or User Input sections. This would mean that at most you could earn a 2/4.</li>
+    </ul>
+
+
+
+
+
+
+
+
+
+
+    // One Possible Way to Check for Ties
+    // (a) Scanning in all 4 possible directions (vert, horiz, up_left-to-down_right, up_right-to-down_left)
+    //          If a player got 4 in a row in any of the above 4 possible directions, then return that player's number who won.
+    // (b) Count up the total number of tokens on the board. If the number of tokens is 42, then that means the whole board is filled up
+    //      and there is a tie.
+    // (c) If it is NOT the case that the number of tokens is 42, then you can assume that the game needs to keep running.
+
+    // Other way to Check for Ties if this makes more sense...
+    // // (a) Scanning in all 4 possible directions (vert, horiz, up_left-to-down_right, up_right-to-down_left)
+    //          If a player got 4 in a row in any of the above 4 possible directions, then return that player's number who won.
+    //    (b) Scan through the board, and if you find a space somewhere on the board that is 0 (so an open space),
+    //          then you can conclude that the game must go on.
+    //    (c) If condition (b) isn't met, then you know that there has to be a tie.
+</body>
+</html>
