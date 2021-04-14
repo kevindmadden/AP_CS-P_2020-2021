@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <canvas id="canvas" width="500px" height="500px" style="border: 1px solid black;" tabindex="1" autofocus></canvas>
+    <script>
+        //IMPORTANT CITATION: The code submitted for this project is based off of a starting template that was provided
+        //  and explained in class. This template consisted of...
+        //      -The html code for creating the canvas
+        //      -The basic structure of the gameLoop function
+        //      -The circle+circle, rectangle+rectangle, and rectangle+circle collision functions
+        //      -A couple of misc functions (random int function, random color function)
+        //      -The mouse input section
+        //      -The keyboard input section
+        //Canvas API: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
+        const canvas = document.getElementById("canvas")
+        const ctx = canvas.getContext("2d") //ctx is just referring to the fact that we want to draw in 2d on our canvas
+
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        // Game Loop
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        let prevTimeStamp = 0
+        window.requestAnimationFrame(gameLoop)
+        function gameLoop(currentTimeStamp){
+            let timeElapsed = (currentTimeStamp-prevTimeStamp)/1000
+            prevTimeStamp = currentTimeStamp
+            ctx.clearRect(0,0,500,500)
+
+            console.log("test")
+
+
+            window.requestAnimationFrame(gameLoop)
+        }
+
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        // Collision Functions
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+        function didCircleCircleColl(cir1_x, cir1_y, cir1_r, cir2_x, cir2_y, cir2_r){
+            let distanceBetweenCenters = Math.sqrt( Math.pow(cir2_x-cir1_x,2) + Math.pow(cir2_y-cir1_y, 2))
+            let sumOfRadii = cir1_r + cir2_r
+
+            if(distanceBetweenCenters > sumOfRadii){
+                //they aren't touching
+                return false
+            }else{
+                //they are touching
+                return true
+
+            }
+        }
+
+        function didRectRectColl(rect1_x, rect1_y, rect1_width, rect1_height, rect2_x, rect2_y, rect2_width, rect2_height){ //https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
+            if (rect1_x < rect2_x + rect2_width &&
+                rect1_x + rect1_width > rect2_x &&
+                rect1_y < rect2_y + rect2_height &&
+                rect1_y + rect1_height > rect2_y) {
+                return true
+            }else{
+                return false
+            }
+        }
+
+        function didRectCircleColl(rect_x, rect_y, rect_w, rect_h, circle_x, circle_y, circle_r){ //https://stackoverflow.com/questions/21089959/detecting-collision-of-rectangle-with-circle
+            let distX = Math.abs(circle_x - rect_x-rect_w/2);
+            let distY = Math.abs(circle_y - rect_y-rect_h/2);
+
+            if (distX > (rect_w/2 + circle_r)) { return false; }
+            if (distY > (rect_h/2 + circle_r)) { return false; }
+
+            if (distX <= (rect_w/2)) { return true; }
+            if (distY <= (rect_h/2)) { return true; }
+
+            let dx=distX-rect_w/2;
+            let dy=distY-rect_h/2;
+            return (dx*dx+dy*dy<=(circle_r*circle_r));
+        }
+
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        // Misc. Functions
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+        function random(min, max) {
+            return Math.floor(Math.random()*(max - min) ) + min;
+        }
+
+        function getRandomColor(){
+            return 'rgb('+random(0,255)+', '+random(0,255)+', '+random(0,255)+')'
+        }
+
+
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        // Mouse/Cursor Input
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+        let xCursorPos = 0
+        let yCursorPos = 0
+        let isMouseDown = false
+
+        function getCursorPosition(canvas, event) {
+            const rect = canvas.getBoundingClientRect()
+            xCursorPos = event.clientX - rect.left
+            yCursorPos = event.clientY - rect.top
+            console.log("Coordinates - x: "+xCursorPos+", y: "+yCursorPos)
+        }
+
+        canvas.addEventListener('mousemove', function(e) {
+            getCursorPosition(canvas, e)
+        })
+
+        canvas.addEventListener('mousedown', function(e) {
+            getCursorPosition(canvas, e)
+            isMouseDown = true
+        })
+
+        canvas.addEventListener('mouseup', function(e) {
+            getCursorPosition(canvas, e)
+            isMouseDown = false
+        })
+
+
+
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        // Keyboard Input
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+        canvas.addEventListener('keydown', keyHandler)
+        canvas.addEventListener('keyup', keyHandler)
+
+        //link to all key values: https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values
+        let kbInput = {
+            left : {
+                value : "ArrowLeft",
+                isPressed: false,
+            },
+            right : {
+                value : "ArrowRight",
+                isPressed: false,
+            },
+            down : {
+                value : "ArrowDown",
+                isPressed: false,
+            },
+            up : {
+                value : "ArrowUp",
+                isPressed: false,
+            },
+            space : {
+                value : " ",
+                isPressed : false,
+            },
+        }
+
+        function keyHandler(event) {
+            event.preventDefault() //prevents the keys that you press from performing their default action in your internet browser (for ex: when you press the down arrow key, the browser window will not scroll down)
+            let type = event.type
+            let isPressed = false
+            if(type==="keydown"){
+                isPressed = true
+            }
+
+            //console.log(event.key) //logs key stroke values if needed
+
+            if(event.key===kbInput.left.value){
+                kbInput.left.isPressed = isPressed
+            }
+            if(event.key===kbInput.right.value){
+                kbInput.right.isPressed = isPressed
+            }
+            if(event.key===kbInput.up.value){
+                kbInput.up.isPressed = isPressed
+            }
+            if(event.key===kbInput.down.value){
+                kbInput.down.isPressed = isPressed
+            }
+            if(event.key===kbInput.space.value){
+                kbInput.space.isPressed = isPressed
+            }
+        }
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
