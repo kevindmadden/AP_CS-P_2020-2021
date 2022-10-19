@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <canvas id="canvas" width="500px" height="500px" style="border: 1px solid black;" tabindex="1" autofocus></canvas>
+    <script>
+        //Canvas API: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
+        const canvas = document.getElementById("canvas")
+        const ctx = canvas.getContext("2d") //ctx is just referring to the fact that we want to draw in 2d on our canvas
+
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        // Game Loop
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        let prevTimeStamp = 0
+        window.requestAnimationFrame(gameLoop)
+        function gameLoop(currentTimeStamp){
+            let timeElapsed = (currentTimeStamp-prevTimeStamp)/1000
+            prevTimeStamp = currentTimeStamp
+            ctx.clearRect(0,0,500,500)
+
+            /*let timeFactor = (currentTimeStamp%1000)*.01
+            console.log(timeFactor)
+            for(let i = 0; i<500; i=i+50){
+                for(let j=0; j<500; j=j+50){
+                    ctx.fillStyle="red"
+                    ctx.lineWidth = timeFactor
+                    ctx.fillRect(i,j,50,50)
+                    ctx.strokeRect(i,j,50,50)
+                }
+            }*/
+
+            for(let i = 0; i<500; i=i+50){
+                for(let j=0; j<500; j=j+50){
+                    ctx.fillStyle="red"
+                    ctx.lineWidth = easeInOutQuad(currentTimeStamp, 5, 10, 1000)
+                    ctx.fillRect(i,j,50,50)
+                    ctx.strokeRect(i,j,50,50)
+                }
+            }
+
+
+            window.requestAnimationFrame(gameLoop)
+        }
+
+        function easeInOutQuad (t, b, c, d) {
+            t=t%(d*2)
+            if ((t /= d / 2) < 1) return c / 2 * t * t + b;
+            return -c / 2 * ((--t) * (t - 2) - 1) + b;
+        }
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
